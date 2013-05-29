@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ProjectExtensions />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{613F7B0E-2FCD-4DC6-9A64-E4D9E4BE56C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GuruxAMI.Common</RootNamespace>
+    <AssemblyName>GuruxAMI.Common</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GuruxAMI.Common.Messages\GXTracesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTracesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceAddRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceAddResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceLevelRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceLevelResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTraceUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXParameterUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXParameterUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorStateUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorStateUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceStateUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceStateUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTableRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTableResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGetRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGetResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXValuesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXValuesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXIsDatabaseCreatedRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXIsDatabaseCreatedResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXValuesUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXValuesUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXClaimedTask.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDataRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDataResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXCreateDeviceRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXCreateDeviceResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsRegisterRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsRegisterResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsUnregisterRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsUnregisterResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsItem.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTasksClaimRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTasksClaimResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXEventsResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorsRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorsResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDataCollectorUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDropTablesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXCreateTablesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDropTablesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXCreateTablesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXActionDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXActionDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXActionRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXActionResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupsRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDevicesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDevicesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplatesRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplatesResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorsRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorsResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXErrorUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTaskDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTaskDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTasksRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTasksResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTaskUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXTaskUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupsRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserGroupUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUsersRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUsersResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserUpdateRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXUserUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common\Actions.cs" />
+    <Compile Include="GuruxAMI.Common\AutoConnect.cs" />
+    <Compile Include="GuruxAMI.Common\ActionTarget.cs" />
+    <Compile Include="GuruxAMI.Common\DataCollector.cs" />
+    <Compile Include="GuruxAMI.Common\DataCollectorDevice.cs" />
+    <Compile Include="GuruxAMI.Common\DataCollectorUserGroup.cs" />
+    <Compile Include="GuruxAMI.Common\Device.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceError.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceGroup.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceGroupDevice.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\GXAmiDataCollectorError.cs" />
+    <Compile Include="GuruxAMI.Common\LatestValue.cs" />
+    <Compile Include="GuruxAMI.Common\MediaSettingsTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\Parameter.cs" />
+    <Compile Include="GuruxAMI.Common\ParameterTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\Property.cs" />
+    <Compile Include="GuruxAMI.Common\Category.cs" />
+    <Compile Include="GuruxAMI.Common\CategoryTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\PropertyTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\Schedule.cs" />
+    <Compile Include="GuruxAMI.Common\ScheduleTarget.cs" />
+    <Compile Include="GuruxAMI.Common\SystemError.cs" />
+    <Compile Include="GuruxAMI.Common\TargetType.cs" />
+    <Compile Include="GuruxAMI.Common\Task.cs" />
+    <Compile Include="GuruxAMI.Common\TaskData.cs" />
+    <Compile Include="GuruxAMI.Common\TaskLog.cs" />
+    <Compile Include="GuruxAMI.Common\TaskState.cs" />
+    <Compile Include="GuruxAMI.Common\TaskType.cs" />
+    <Compile Include="GuruxAMI.Common\Trace.cs" />
+    <Compile Include="GuruxAMI.Common\TraceData.cs" />
+    <Compile Include="GuruxAMI.Common\User.cs" />
+    <Compile Include="GuruxAMI.Common\UserAccessRights.cs" />
+    <Compile Include="GuruxAMI.Common\UserActionLog.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroup.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroupDeviceGroup.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroupDeviceTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroupScheduleItem.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroupUser.cs" />
+    <Compile Include="GuruxAMI.Common\ValueLog.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GXCom\Gurux.Common\Development\Gurux.Common_2010.csproj">
+      <Project>{749652D4-4779-4869-AD81-5211A661CD1B}</Project>
+      <Name>Gurux.Common_2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\Gurux.Communication\Development\Gurux.Communication_2010.csproj">
+      <Project>{BA05698E-DDAA-4D04-A6F0-6BC571805179}</Project>
+      <Name>Gurux.Communication_2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GXCom\Gurux.Device\Development\Gurux.Device_2010.csproj">
+      <Project>{C4BB249E-A56A-4675-B406-864280D77BF3}</Project>
+      <Name>Gurux.Device_2010</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

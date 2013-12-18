@@ -68,8 +68,7 @@ namespace GuruxAMI.Common
             aes128.Mode = CipherMode.CBC;
             byte[] key = new byte[16];
             Array.Copy(new System.Text.ASCIIEncoding().GetBytes(textToEncrypt), key, 16);
-            aes128.Key = key;
-            //aes128.IV = new byte[] { 0x67, 0x40, 0x38, 0x2b, 0x47, 0x5e, 0x13, 0x49, 0x7b, 0x56, 0x34, 0x78, 0x31, 0x54, 0x5a, 0x65 };
+            aes128.Key = key;            
             aes128.IV = System.Text.ASCIIEncoding.ASCII.GetBytes("GuruxSoftwareLtd");
             // encrypt the data            
             ICryptoTransform encryptor = aes128.CreateEncryptor();

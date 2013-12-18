@@ -46,14 +46,14 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public bool Permamently
+		public bool Permanently
 		{
 			get;
 			set;
 		}
-		public GXUserDeleteRequest(GXAmiUser[] users, bool permamently)
+		public GXUserDeleteRequest(GXAmiUser[] users, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (users != null)
 			{
 				int pos = -1;
@@ -65,9 +65,9 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXUserDeleteRequest(GXAmiUser[] users, GXAmiUserGroup[] groups, bool permamently)
+		public GXUserDeleteRequest(GXAmiUser[] users, GXAmiUserGroup[] groups, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (users != null)
 			{
 				int pos = -1;

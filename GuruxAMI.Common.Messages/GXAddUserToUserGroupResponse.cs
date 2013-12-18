@@ -30,34 +30,10 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplateDeleteRequest : IReturn<GXDeviceTemplateDeleteResponse>, IReturn
+	public class GXAddUserToUserGroupResponse
 	{
-        public ulong[] DeviceTemplateIDs
-		{
-			get;
-			internal set;
-		}
-		public bool Permanently
-		{
-			get;
-			set;
-		}
-        public GXDeviceTemplateDeleteRequest(GXAmiDeviceTemplate[] templates, bool permanently)
-		{
-            Permanently = permanently;
-			if (templates != null)
-			{
-				int pos = -1;
-                this.DeviceTemplateIDs = new ulong[templates.Length];
-				for (int i = 0; i < templates.Length; i++)
-				{
-					this.DeviceTemplateIDs[++pos] = templates[i].Id;
-				}
-			}
-		}
 	}
 }

@@ -52,6 +52,17 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
+
+        /// <summary>
+        /// User Group ID.
+        /// </summary>     
+        public long UserGroupId
+        {
+            get;
+            internal set;
+        }
+
+
         /// <summary>
         /// Device ID.
         /// </summary>      
@@ -79,9 +90,18 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
-        /// User count.
+        /// User group count.
         /// </summary>
         public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Excluded user groups.
+        /// </summary>
+        public long[] Excluded
         {
             get;
             set;
@@ -102,6 +122,14 @@ namespace GuruxAMI.Common.Messages
 		public GXUserGroupsRequest()
 		{
 		}
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GXUserGroupsRequest(long userGroupId)
+        {
+            UserGroupId = userGroupId;
+        }
 
         /// <summary>
         /// Search for the user group(s) to which the device group belongs to.

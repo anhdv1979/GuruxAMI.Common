@@ -49,7 +49,7 @@ namespace GuruxAMI.Common.Messages
 			if (templates != null)
 			{
 				int pos = -1;
-				this.Ids = new ulong[templates.Length];
+                this.Ids = new ulong[templates.Length];
 				for (int i = 0; i < templates.Length; i++)
 				{
 					this.Ids[++pos] = templates[i].Id;

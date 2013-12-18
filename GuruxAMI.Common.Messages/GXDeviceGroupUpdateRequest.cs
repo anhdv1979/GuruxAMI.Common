@@ -55,11 +55,6 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-        public long[] UserGroupIDs
-        {
-            get;
-            internal set;
-        }
 
         public GXDeviceGroupUpdateRequest(Actions action, GXAmiDeviceGroup[] groups)
 		{
@@ -72,21 +67,5 @@ namespace GuruxAMI.Common.Messages
 			this.Items = items;
 			this.DeviceGroups = parents;
 		}
-
-        public GXDeviceGroupUpdateRequest(Actions action, GXAmiDeviceGroup[] items, GXAmiUserGroup[] groups)
-        {
-            Action = action;
-            this.Items = items;
-            if (groups != null)
-            {
-                int pos = -1;
-                this.UserGroupIDs = new long[groups.Length];
-                for (int i = 0; i < groups.Length; i++)
-                {
-                    GXAmiUserGroup it = groups[i];
-                    this.UserGroupIDs[++pos] = it.Id;
-                }
-            }
-        }
 	}
 }

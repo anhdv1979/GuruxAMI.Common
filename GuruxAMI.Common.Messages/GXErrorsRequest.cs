@@ -36,22 +36,22 @@ namespace GuruxAMI.Common.Messages
 {
 	public class GXErrorsRequest : IReturn<GXErrorsResponse>, IReturn
 	{
-		public ulong Device
+		public ulong[] DeviceIDs
 		{
 			get;
 			internal set;
 		}
-		public ulong DeviceGroup
+        public ulong[] DeviceGroupIDs
 		{
 			get;
 			internal set;
 		}
-        public long User
+        public long[] UserIDs
 		{
 			get;
 			internal set;
 		}
-        public long UserGroup
+        public long[] UserGroupIDs
 		{
 			get;
 			internal set;
@@ -61,26 +61,45 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
+
+        /// <summary>
+        /// Start index.
+        /// </summary>
+        public int Index
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// User count.
+        /// </summary>
+        public int Count
+        {
+            get;
+            set;
+        }
+
 		public GXErrorsRequest(bool system)
 		{
 			this.System = system;
 		}
 		public GXErrorsRequest(GXAmiDevice device)
 		{
-			this.Device = device.Id;
+            this.DeviceIDs = new ulong[]{device.Id};
 		}
 		public GXErrorsRequest(GXAmiDeviceGroup group)
 		{
-			this.DeviceGroup = group.Id;
+            this.DeviceGroupIDs = new ulong[]{group.Id};
 		}
 		public GXErrorsRequest(bool system, GXAmiUser user)
 		{
 			this.System = system;
-			this.User = user.Id;
+            this.UserIDs = new long[]{user.Id};
 		}
 		public GXErrorsRequest(GXAmiUserGroup group)
 		{
-			this.UserGroup = group.Id;
+            this.UserGroupIDs = new long[]{group.Id};
 		}
 	}
 }

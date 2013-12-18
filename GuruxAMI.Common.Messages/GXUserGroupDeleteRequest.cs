@@ -41,14 +41,14 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public bool Permamently
+		public bool Permanently
 		{
 			get;
 			set;
 		}
-		public GXUserGroupDeleteRequest(GXAmiUserGroup[] groups, bool permamently)
+		public GXUserGroupDeleteRequest(GXAmiUserGroup[] groups, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (groups != null)
 			{
 				int pos = -1;

@@ -40,6 +40,15 @@ namespace GuruxAMI.Common.Messages
 {
     public class GXDataCollectorsRequest : IReturn<GXDataCollectorsResponse>, IReturn
     {
+        /// <summary>
+        /// Get Data Collector by ID.
+        /// </summary>
+        public ulong DataCollectorId
+        {
+            get;
+            internal set;
+        }
+
         public ulong DeviceId
         {
             get;
@@ -52,11 +61,19 @@ namespace GuruxAMI.Common.Messages
             internal set;
         }
 
-
         public bool UnAssigned
         {
             get;
             internal set;
+        }
+
+        /// <summary>
+        /// Are removed item retreaved also.
+        /// </summary>
+        public bool Removed
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -84,8 +101,34 @@ namespace GuruxAMI.Common.Messages
         {
             get;
             internal set;
-        }        
+        }
 
+        /// <summary>
+        /// Start index.
+        /// </summary>
+        public int Index
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// User count.
+        /// </summary>
+        public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Excluded devices.
+        /// </summary>
+        public ulong[] Excluded
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Constructor.

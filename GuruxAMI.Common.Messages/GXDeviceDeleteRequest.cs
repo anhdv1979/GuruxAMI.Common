@@ -46,14 +46,14 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public bool Permamently
+		public bool Permanently
 		{
 			get;
 			set;
 		}
-		public GXDeviceDeleteRequest(GXAmiDevice[] devices, bool permamently)
+		public GXDeviceDeleteRequest(GXAmiDevice[] devices, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (devices != null)
 			{
 				int pos = -1;
@@ -65,9 +65,9 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXDeviceDeleteRequest(GXAmiDevice[] devices, GXAmiDeviceGroup[] groups, bool permamently)
+		public GXDeviceDeleteRequest(GXAmiDevice[] devices, GXAmiDeviceGroup[] groups, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (devices != null)
 			{
 				int pos = -1;

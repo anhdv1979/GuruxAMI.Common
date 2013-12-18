@@ -44,16 +44,32 @@ namespace GuruxAMI.Common.Messages
     /// </remarks>
 	public class GXUsersRequest : IReturn<GXUsersResponse>, IReturn
 	{
+        /// <summary>
+        /// Device ID.
+        /// </summary>
 		public ulong DeviceID
 		{
 			get;
 			internal set;
 		}
+
+        /// <summary>
+        /// User Group Id
+        /// </summary>
         public long UserGroupID
 		{
 			get;
 			internal set;
 		}
+
+        /// <summary>
+        /// User Id
+        /// </summary>
+        public long UserID
+        {
+            get;
+            internal set;
+        }
 
         /// <summary>
         /// Start index.
@@ -74,6 +90,15 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
+        /// Excluded Users.
+        /// </summary>
+        public long[] Excluded
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Are removed item retreaved also.
         /// </summary>
         public bool Removed
@@ -88,6 +113,15 @@ namespace GuruxAMI.Common.Messages
 		public GXUsersRequest()
 		{
 		}
+
+        /// <summary>
+        /// Returns users who can access device.
+        /// </summary>
+        /// <param name="device"></param>
+        public GXUsersRequest(long userId)
+        {
+            this.UserID = userId;
+        }
 
         /// <summary>
         /// Returns users who can access device.

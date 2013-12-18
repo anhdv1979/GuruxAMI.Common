@@ -36,12 +36,24 @@ namespace GuruxAMI.Common.Messages
 {
 	public class GXDeviceGroupsRequest : IReturn<GXDeviceGroupResponse>, IReturn
 	{
+        /// <summary>
+        /// Device Group Id
+        /// </summary>
+        public ulong Id
+        {
+            get;
+            internal set;
+        }
+
 		public ulong DeviceId
 		{
 			get;
 			internal set;
 		}
 
+        /// <summary>
+        /// Get device groups that this Device Group owns.
+        /// </summary>
         public ulong DeviceGroupId
         {
             get;
@@ -72,6 +84,15 @@ namespace GuruxAMI.Common.Messages
         /// User count.
         /// </summary>
         public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Excluded device groups.
+        /// </summary>
+        public ulong[] Excluded
         {
             get;
             set;

@@ -41,14 +41,14 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public bool Permamently
+		public bool Permanently
 		{
 			get;
 			set;
 		}
-		public GXScheduleDeleteRequest(GXAmiSchedule[] schedules, bool permamently)
+		public GXScheduleDeleteRequest(GXAmiSchedule[] schedules, bool permanently)
 		{
-			this.Permamently = permamently;
+			this.Permanently = permanently;
 			if (schedules != null)
 			{
 				int pos = -1;

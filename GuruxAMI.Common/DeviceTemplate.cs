@@ -39,93 +39,6 @@ using Gurux.Device;
 using System.ComponentModel;
 namespace GuruxAMI.Common
 {
-    [Serializable, Alias("MediaType")]
-    public class GXAmiMediaType
-    {
-        [Alias("ID"), AutoIncrement, DataMember]
-        public ulong Id
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Media name.
-        /// </summary>
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        [ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-        public ulong DeviceTemplateId
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Default media settings.
-        /// </summary>
-        public string Settings
-        {
-            get;
-            set;
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }        
-    }
-
-    [Serializable, Alias("DeviceTemplateDataBlock")]
-    public class GXAmiDeviceTemplateDataBlock : IHasId<ulong>
-    {
-        [Alias("ID"), AutoIncrement, DataMember]
-        public ulong Id
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        [ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-        public ulong DeviceTemplateId
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public int Index
-        {
-            get;
-            set;
-        }       
-
-        [DataMember]
-        public byte[] Data
-        {
-            get;
-            set;
-        }
-        
-        public GXAmiDeviceTemplateDataBlock()
-        {
-        }
-
-        public GXAmiDeviceTemplateDataBlock(ulong templateId, int index, byte[] data, int length)
-        {            
-            DeviceTemplateId = templateId;
-            Index = index;
-            Data = new byte[length];
-            Array.Copy(data, Data, length);
-        }
-    }
-
     [Serializable, Alias("DeviceTemplate")]
     public class GXAmiDeviceTemplate : GXAmiDevice, IHasId<ulong>
 	{
@@ -135,6 +48,86 @@ namespace GuruxAMI.Common
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// Protocol name.
+        /// </summary>
+        [DataMember]
+        public override string Protocol
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Device template name.
+        /// </summary>
+        [DataMember]
+        public override string Template
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Protocol AddInType.
+        /// </summary>
+        [DataMember]
+        public override string ProtocolAddInType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Protocol AddInType.
+        /// </summary>
+        [DataMember]
+        public override string ProtocolAssembly
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The preset name of the device template.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public override string PresetName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Retrieves or sets the manufacturer.
+        /// </summary>        
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public override string Manufacturer
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Retrieves or sets the model.
+        /// </summary>        
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public override string Model
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Retrieves or sets the version info.
+        /// </summary>        
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public override string Version
+        {
+            get;
+            set;
+        }
 
         [Browsable(false), Ignore]
         public override ulong TemplateId

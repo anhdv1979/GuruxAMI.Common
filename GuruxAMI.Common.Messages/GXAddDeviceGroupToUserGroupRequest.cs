@@ -34,72 +34,34 @@ using ServiceStack.ServiceHost;
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXErrorDeleteRequest : IReturn<GXErrorDeleteResponse>, IReturn
+	public class GXAddDeviceGroupToUserGroupRequest : IReturn<GXAddDeviceGroupToUserGroupResponse>, IReturn
 	{
-        /// <summary>
-        /// Are system or device errors removed.
-        /// </summary>
-        public bool System
+		public ulong[] DeviceGroups
+		{
+			get;
+			internal set;
+		}
+        public long[] UserGroups
         {
             get;
             internal set;
         }
 
-		public uint[] DeviceErrorIDs
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GXAddDeviceGroupToUserGroupRequest(GXAmiDeviceGroup[] deviceGroups, GXAmiUserGroup[] userGroups)
 		{
-			get;
-			internal set;
-		}
-		public uint[] SystemErrorIDs
-		{
-			get;
-			internal set;
-		}
-		public ulong DeviceID
-		{
-			get;
-			internal set;
-		}
-		public ulong DeviceGroupID
-		{
-			get;
-			internal set;
-		}
-        public bool Permanently
-		{
-			get;
-			set;
-		}
-		public GXErrorDeleteRequest(GXAmiDeviceError[] errors)
-		{
-			if (errors != null)
-			{
-				int pos = -1;
-				this.DeviceErrorIDs = new uint[errors.Length];
-				for (int i = 0; i < errors.Length; i++)
-				{
-					GXAmiDeviceError it = errors[i];
-					this.DeviceErrorIDs[++pos] = it.Id;
-				}
-			}
-		}
-		public GXErrorDeleteRequest(GXAmiSystemError[] errors)
-		{
-			int pos = -1;
-			this.SystemErrorIDs = new uint[errors.Length];
-			for (int i = 0; i < errors.Length; i++)
-			{
-				GXAmiSystemError it = errors[i];
-				this.SystemErrorIDs[++pos] = it.Id;
-			}
-		}
-		public GXErrorDeleteRequest(GXAmiDevice device)
-		{
-			this.DeviceID = device.Id;
-		}
-		public GXErrorDeleteRequest(GXAmiDeviceGroup group)
-		{
-			this.DeviceGroupID = group.Id;
+            DeviceGroups = new ulong[deviceGroups.Length];
+            for (int pos = 0; pos != deviceGroups.Length; ++pos)
+            {
+                DeviceGroups[pos] = deviceGroups[pos].Id;
+            }
+            UserGroups = new long[userGroups.Length];
+            for (int pos = 0; pos != userGroups.Length; ++pos)
+            {
+                UserGroups[pos] = userGroups[pos].Id;
+            }			
 		}
 	}
 }

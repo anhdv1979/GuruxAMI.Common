@@ -50,7 +50,7 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public GXAmiDeviceGroup[] DeviceGroups
+		public ulong[] DeviceGroups
 		{
 			get;
 			internal set;
@@ -65,7 +65,15 @@ namespace GuruxAMI.Common.Messages
 		{
             Action = action;
 			this.Devices = devices;
-			this.DeviceGroups = deviceGroups;
+            if (deviceGroups != null)
+            {
+                int pos = -1;
+                this.DeviceGroups = new ulong[deviceGroups.Length];
+                for (int i = 0; i < deviceGroups.Length; i++)
+                {
+                    this.DeviceGroups[++pos] = deviceGroups[i].Id;
+                }
+            }
 		}
 	}
 }

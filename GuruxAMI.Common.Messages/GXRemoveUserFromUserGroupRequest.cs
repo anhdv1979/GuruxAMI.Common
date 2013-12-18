@@ -34,72 +34,34 @@ using ServiceStack.ServiceHost;
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXErrorDeleteRequest : IReturn<GXErrorDeleteResponse>, IReturn
+	public class GXRemoveUserFromUserGroupRequest : IReturn<GXRemoveUserFromUserGroupResponse>, IReturn
 	{
-        /// <summary>
-        /// Are system or device errors removed.
-        /// </summary>
-        public bool System
+		public long[] Groups
+		{
+			get;
+			internal set;
+		}
+        public long[] Users
         {
             get;
             internal set;
         }
 
-		public uint[] DeviceErrorIDs
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GXRemoveUserFromUserGroupRequest(GXAmiUser[] users, GXAmiUserGroup[] groups)
 		{
-			get;
-			internal set;
-		}
-		public uint[] SystemErrorIDs
-		{
-			get;
-			internal set;
-		}
-		public ulong DeviceID
-		{
-			get;
-			internal set;
-		}
-		public ulong DeviceGroupID
-		{
-			get;
-			internal set;
-		}
-        public bool Permanently
-		{
-			get;
-			set;
-		}
-		public GXErrorDeleteRequest(GXAmiDeviceError[] errors)
-		{
-			if (errors != null)
-			{
-				int pos = -1;
-				this.DeviceErrorIDs = new uint[errors.Length];
-				for (int i = 0; i < errors.Length; i++)
-				{
-					GXAmiDeviceError it = errors[i];
-					this.DeviceErrorIDs[++pos] = it.Id;
-				}
-			}
-		}
-		public GXErrorDeleteRequest(GXAmiSystemError[] errors)
-		{
-			int pos = -1;
-			this.SystemErrorIDs = new uint[errors.Length];
-			for (int i = 0; i < errors.Length; i++)
-			{
-				GXAmiSystemError it = errors[i];
-				this.SystemErrorIDs[++pos] = it.Id;
-			}
-		}
-		public GXErrorDeleteRequest(GXAmiDevice device)
-		{
-			this.DeviceID = device.Id;
-		}
-		public GXErrorDeleteRequest(GXAmiDeviceGroup group)
-		{
-			this.DeviceGroupID = group.Id;
+            Users = new long[users.Length];
+            for (int pos = 0; pos != users.Length; ++pos)
+            {
+                Users[pos] = users[pos].Id;
+            }
+            Groups = new long[groups.Length];
+            for (int pos = 0; pos != groups.Length; ++pos)
+            {
+                Groups[pos] = groups[pos].Id;
+            }			
 		}
 	}
 }

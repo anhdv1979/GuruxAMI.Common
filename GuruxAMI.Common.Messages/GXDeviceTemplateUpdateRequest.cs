@@ -36,7 +36,7 @@ namespace GuruxAMI.Common.Messages
 {
 	public class GXDeviceTemplateUpdateRequest : IReturn<GXDeviceTemplateUpdateResponse>, IReturn
 	{
-		public GXAmiUserGroup[] UserGroups
+        public long[] UserGroups
 		{
 			get;
 			internal set;
@@ -49,7 +49,15 @@ namespace GuruxAMI.Common.Messages
 		}
 		public GXDeviceTemplateUpdateRequest(GXAmiUserGroup[] groups, byte[] data)
 		{
-			this.UserGroups = groups;
+            if (groups != null)
+            {
+                int pos = -1;
+                this.UserGroups = new long[groups.Length];
+                for (int i = 0; i < groups.Length; i++)
+                {
+                    this.UserGroups[++pos] = groups[i].Id;
+                }
+            }
 			this.Data = data;
 		}
 	}

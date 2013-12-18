@@ -87,7 +87,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiUserGroup[] groups, bool permamently)
+		public GXTaskDeleteRequest(GXAmiUserGroup[] groups, bool permanently)
 		{
 			if (groups != null)
 			{
@@ -100,7 +100,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiDevice[] devices, bool permamently)
+		public GXTaskDeleteRequest(GXAmiDevice[] devices, bool permanently)
 		{
 			if (devices != null)
 			{
@@ -113,7 +113,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiDeviceGroup[] groups, bool permamently)
+		public GXTaskDeleteRequest(GXAmiDeviceGroup[] groups, bool permanently)
 		{
 			if (groups != null)
 			{

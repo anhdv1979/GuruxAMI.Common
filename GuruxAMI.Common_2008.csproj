@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\GuruxAMI.Common.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ServiceStack.Interfaces, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
@@ -56,6 +57,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceGroupToUserGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceGroupToUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceToDeviceGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceToDeviceGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceFromDeviceGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceFromDeviceGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceGroupFromUserGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceGroupFromUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveUserFromUserGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXAddUserToUserGroupRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXAddUserToUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXRemoveUserFromUserGroupResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTracesRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTracesResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTraceAddRequest.cs" />
@@ -170,6 +183,8 @@
     <Compile Include="GuruxAMI.Common\DeviceGroupDevice.cs" />
     <Compile Include="GuruxAMI.Common\DeviceTemplate.cs" />
     <Compile Include="GuruxAMI.Common\GXAmiDataCollectorError.cs" />
+    <Compile Include="GuruxAMI.Common\GXAmiDeviceTemplateDataBlock.cs" />
+    <Compile Include="GuruxAMI.Common\GXAmiMediaType.cs" />
     <Compile Include="GuruxAMI.Common\LatestValue.cs" />
     <Compile Include="GuruxAMI.Common\MediaSettingsTemplate.cs" />
     <Compile Include="GuruxAMI.Common\Parameter.cs" />

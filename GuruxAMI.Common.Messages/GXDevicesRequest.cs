@@ -93,6 +93,15 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
+        /// Excluded devices.
+        /// </summary>
+        public ulong[] Excluded
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Are removed item retreaved also.
         /// </summary>
         public bool Removed

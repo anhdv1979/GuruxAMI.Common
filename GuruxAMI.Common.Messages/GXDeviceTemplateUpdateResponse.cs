@@ -35,7 +35,7 @@ namespace GuruxAMI.Common.Messages
 {
 	public class GXDeviceTemplateUpdateResponse
 	{
-		public GXAmiUserGroup[] UserGroups
+        public long[] UserGroups
 		{
 			get;
 			internal set;
@@ -46,9 +46,9 @@ namespace GuruxAMI.Common.Messages
 			internal set;
 		}
 
-		public GXDeviceTemplateUpdateResponse(GXAmiUserGroup[] groups, GXAmiDeviceTemplate template)
+        public GXDeviceTemplateUpdateResponse(long[] groups, GXAmiDeviceTemplate template)
 		{
-			this.UserGroups = groups;
+            UserGroups = groups;
 			this.Template = template;
 		}
 	}

@@ -50,7 +50,7 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
-        /// Remove users from datacontroller.
+        /// Remove users from data collectors.
         /// </summary>
         public long UserId
         {
@@ -59,15 +59,15 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
-        /// Removed data controllers.
+        /// Removed data collector(s).
         /// </summary>
-        public ulong[] DataControllerIDs
+        public ulong[] DataCollectorIDs
         {
             get;
             internal set;
         }
         
-        public bool Permamently
+        public bool Permanently
         {
             get;
             set;
@@ -76,16 +76,16 @@ namespace GuruxAMI.Common.Messages
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GXDataCollectorDeleteRequest(GXAmiDataCollector[] collectors, bool permamently)
+        public GXDataCollectorDeleteRequest(GXAmiDataCollector[] collectors, bool permanently)
         {
-            this.Permamently = permamently;
+            this.Permanently = permanently;
             if (collectors != null)
             {
                 int pos = -1;
-                this.DataControllerIDs = new ulong[collectors.Length];
+                this.DataCollectorIDs = new ulong[collectors.Length];
                 for (int i = 0; i < collectors.Length; i++)
                 {                    
-                    this.DataControllerIDs[++pos] = collectors[i].Id;
+                    this.DataCollectorIDs[++pos] = collectors[i].Id;
                 }
             }
         }

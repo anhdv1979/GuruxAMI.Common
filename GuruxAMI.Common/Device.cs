@@ -61,8 +61,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Protocol name.
         /// </summary>
-		[DataMember]
-		public string Protocol
+        [DataMember, Ignore]
+		public virtual string Protocol
 		{
 			get;
 			set;
@@ -71,8 +71,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Device template name.
         /// </summary>
-        [DataMember]
-        public string Template
+        [DataMember, Ignore]
+        public virtual string Template
         {
             get;
             set;
@@ -81,8 +81,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Protocol AddInType.
         /// </summary>
-        [DataMember]
-        public string ProtocolAddInType
+        [DataMember, Ignore]
+        public virtual string ProtocolAddInType
         {
             get;
             set;
@@ -91,8 +91,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Protocol AddInType.
         /// </summary>
-        [DataMember]
-        public string ProtocolAssembly
+        [DataMember, Ignore]
+        public virtual string ProtocolAssembly
         {
             get;
             set;
@@ -101,8 +101,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The preset name of the device template.
         /// </summary>
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public string PresetName
+        [DataMember(IsRequired = false, EmitDefaultValue = false), Ignore]
+        public virtual string PresetName
         {
             get;
             set;
@@ -111,8 +111,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Retrieves or sets the manufacturer.
         /// </summary>        
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]        
-        public string Manufacturer
+        [DataMember(IsRequired = false, EmitDefaultValue = false), Ignore]
+        public virtual string Manufacturer
         {
             get;
             set;
@@ -121,8 +121,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Retrieves or sets the model.
         /// </summary>        
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public string Model
+        [DataMember(IsRequired = false, EmitDefaultValue = false), Ignore]
+        public virtual string Model
         {
             get;
             set;
@@ -131,8 +131,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Retrieves or sets the version info.
         /// </summary>        
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]        
-        public string Version
+        [DataMember(IsRequired = false, EmitDefaultValue = false), Ignore]
+        public virtual string Version
         {
             get;
             set;
@@ -205,13 +205,33 @@ namespace GuruxAMI.Common
 			get;
 			set;
 		}
-		
-        [DataMember]
+
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
 		public AutoConnect AutoConnect
 		{
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// Returns AutoConnect enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("AutoConnect")]
+        [DataMember()]
+        public virtual int AutoConnectAsInt
+        {
+            get
+            {
+                return (int)AutoConnect;
+            }
+            set
+            {
+                AutoConnect = (AutoConnect)value;
+            }
+        }
 
 		[DataMember]
 		public bool ForcePerPropertyRead

@@ -39,7 +39,7 @@ namespace GuruxAMI.Common
     [Serializable, Alias("DeviceGroup")]
 	public class GXAmiDeviceGroup : IHasId<ulong>
 	{
-        [Alias("ID"), AutoIncrement, Index(Unique = true), DataMember]
+        [Alias("ID"), Index(Unique = true), DataMember]
 		public ulong Id
 		{
 			get;

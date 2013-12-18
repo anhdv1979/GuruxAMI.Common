@@ -39,18 +39,11 @@ namespace GuruxAMI.Common.Messages
 		{
 			get;
 			internal set;
-		}
+		}        
 
-        public GXAmiUserGroup[] UserGroups
-        {
-            get;
-            internal set;
-        }
-
-        public GXUserUpdateResponse(GXAmiUser[] users, GXAmiUserGroup[] groups)
+        public GXUserUpdateResponse(GXAmiUser[] users)
 		{
-			this.Users = users;
-            UserGroups = groups;
+			this.Users = users;            
 		}
 	}
 }

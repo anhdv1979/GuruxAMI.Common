@@ -80,6 +80,33 @@ namespace GuruxAMI.Common.Messages
 		}
 
         /// <summary>
+        /// Start index.
+        /// </summary>
+        public int Index
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// User count.
+        /// </summary>
+        public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Excluded task IDs.
+        /// </summary>
+        public ulong[] Excluded
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Get all tasks by state.
         /// </summary>
         /// <param name="state">Task state.</param>

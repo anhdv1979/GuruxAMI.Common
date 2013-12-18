@@ -67,13 +67,6 @@ namespace GuruxAMI.Common
 		{
 			get;
 			set;
-		}
-
-		[DataMember]
-		public DateTime? Removed
-		{
-			get;
-			set;
-		}
+		}		
 	}
 }

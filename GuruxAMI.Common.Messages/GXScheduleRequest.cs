@@ -30,12 +30,26 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXScheduleRequest : IReturn<GXScheduleResponse>, IReturn
 	{
+        /// <summary>
+        /// Retreaved schedules.
+        /// </summary>
+        public ulong[] TargetIDs
+        {
+            get;
+            set;
+        }
+
         public long[] UserIDs
 		{
 			get;
@@ -46,6 +60,43 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
+
+        /// <summary>
+        /// Start index.
+        /// </summary>
+        public int Index
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Schedule count.
+        /// </summary>
+        public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Excluded schedules.
+        /// </summary>
+        public ulong[] Excluded
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Are removed item retreaved also.
+        /// </summary>
+        public bool Removed
+        {
+            get;
+            set;
+        }
+
 		public GXScheduleRequest()
 		{
 		}

@@ -31,10 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -42,27 +46,21 @@ namespace GuruxAMI.Common
     public class GXAmiTaskData : IHasId<ulong>
     {
         /// <summary>
-        /// The database ID of the task
+        /// The database ID of the task data.
         /// </summary>
-        [Alias("ID"), DataMember, AutoIncrement, Index(Unique = false)]
+        [Alias("ID"), DataMember, AutoIncrement, Index(Unique = true)]
         public virtual ulong Id
         {
             get;
             set;
         }
 
-        [Alias("TaskID"), DataMember, Index(Unique = false)]
-        public ulong TaskId
-        {
-            get;
-            set;
-        }
-
         /// <summary>
-        /// If size of data is not fit to one data field data is splitted to several tasks.
+        /// The database ID of the task.
         /// </summary>
-        [DataMember, Index(Unique = false)]
-        public int Index
+        [DataMember, Index(Unique = false), ForeignKey(typeof(GXAmiTask), OnDelete = "CASCADE")]
+        [Alias("TaskID")]
+        public virtual ulong TaskId
         {
             get;
             set;
@@ -73,6 +71,21 @@ namespace GuruxAMI.Common
         /// </summary>
         [DataMember]
         public string Data
+        {
+            get;
+            set;
+        }
+    }
+
+    [Serializable, Alias("TaskLogData")]
+    public class GXAmiTaskLogData : GXAmiTaskData
+    {
+        /// <summary>
+        /// The database ID of the task.
+        /// </summary>
+        [DataMember, Index(Unique = false), ForeignKey(typeof(GXAmiTaskLog), OnDelete = "CASCADE")]
+        [Alias("TaskID")]
+        override public ulong TaskId
         {
             get;
             set;

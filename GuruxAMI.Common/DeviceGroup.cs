@@ -31,9 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
     [Serializable, Alias("DeviceGroup")]
@@ -71,7 +76,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Date and time when the device group was removed.
         /// </summary>      
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime? Removed
 		{
 			get;

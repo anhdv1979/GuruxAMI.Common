@@ -31,7 +31,12 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
@@ -51,7 +56,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Device ID.
         /// </summary>
-        [DataMember, ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
+        [DataMember, ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
         public override ulong DeviceID
         {
             get;
@@ -62,7 +67,7 @@ namespace GuruxAMI.Common
         /// Hide Category template ID.
         /// </summary>
         [Ignore]
-        public override ulong TemplateId
+        public override ulong ProfileId
         {
             get;
             set;
@@ -72,7 +77,7 @@ namespace GuruxAMI.Common
         {
             GXAmiCategory cat = new GXAmiCategory();
             cat.TemplateVersion = TemplateVersion;
-            cat.TemplateId = Id & 0xFFFF;
+            cat.ProfileId = Id & 0xFFFF;
             cat.Name = Name;            
             //Properties
             //Parameters

@@ -30,7 +30,12 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
+#if !SS4
 using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 using System;
 namespace GuruxAMI.Common.Messages
 {
@@ -75,6 +80,15 @@ namespace GuruxAMI.Common.Messages
         /// User count.
         /// </summary>
         public int Count
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Are errors received as descending order.
+        /// </summary>
+        public bool Descending
         {
             get;
             set;

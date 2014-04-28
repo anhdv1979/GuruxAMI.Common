@@ -34,13 +34,18 @@ using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using ServiceStack.DesignPatterns.Model;
 using Gurux.Device;
 using System.ComponentModel;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
+    [DataContract()]
     [Serializable, Alias("Property")]
 	public class GXAmiProperty : IHasId<ulong>
 	{
@@ -124,10 +129,27 @@ namespace GuruxAMI.Common
             get;
             set;
         }
-        
+
+        [ServiceStack.DataAnnotations.Ignore]
+        public GXAmiVisualizer Visualizer
+        {
+            get;
+            set;
+        }        
 
         [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
         public Gurux.Device.AccessMode AccessMode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Collection of values that property can get.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ServiceStack.DataAnnotations.Ignore]
+        public virtual GXAmiValueItem[] Values
         {
             get;
             set;

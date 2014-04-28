@@ -31,9 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
     [Serializable, Alias("ValueLog")]

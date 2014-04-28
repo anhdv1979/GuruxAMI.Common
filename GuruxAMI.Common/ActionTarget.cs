@@ -34,67 +34,88 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace GuruxAMI.Common
 {
     [Flags]
+    [DataContract()]
     public enum ActionTargets
     {
         /// <summary>
         /// No target is selected.
         /// </summary>
+        [EnumMember(Value = "0")]
         None = 0,
         /// <summary>
         /// Action target is database.
         /// </summary>
+        [EnumMember(Value = "1")]        
         Database = 0x1,
         /// <summary>
         /// Action target is user.
         /// </summary>
-        User= 0x2,
+        [EnumMember(Value = "2")]
+        User = 0x2,
         /// <summary>
         /// Action target is user group.
         /// </summary>
-        UserGroup= 0x4,
+        [EnumMember(Value = "4")]
+        UserGroup = 0x4,
         /// <summary>
         /// Action target is device.
         /// </summary>
-        Device= 0x8,
+        [EnumMember(Value = "8")]
+        Device = 0x8,
         /// <summary>
         /// Action target is device group.
         /// </summary>
+        [EnumMember(Value = "16")]
         DeviceGroup = 0x10, 
         /// <summary>
         /// Action target is task.
         /// </summary>
+        [EnumMember(Value = "32")]
         Task = 0x20,
         /// <summary>
-        /// Action target is device template.
+        /// Action target is device profile.
         /// </summary>
-        DeviceTemplate = 0x40,
+        [EnumMember(Value = "64")]
+        DeviceProfile = 0x40,
         /// <summary>
         /// Action target is data collector.
         /// </summary>
+        [EnumMember(Value = "128")]
         DataCollector = 0x80,
         /// <summary>
         /// Device error.
         /// </summary>
+        [EnumMember(Value = "256")]
         DeviceError = 0x100,
         /// <summary>
         /// System error.
         /// </summary>
+        [EnumMember(Value = "512")]
         SystemError = 0x200,
         /// <summary>
         /// Property value is changed.
         /// </summary>
+        [EnumMember(Value = "1024")]
         ValueChanged = 0x400,
         /// <summary>
         /// Property value is changed.
         /// </summary>
+        [EnumMember(Value = "2048")]
         TableValueChanged = 0x800,
         /// <summary>
         /// Device or DC trace state is changed.
         /// </summary>
+        [EnumMember(Value = "4096")]
         Trace = 0x1000,
+        /// <summary>
+        /// Schedule is changed.
+        /// </summary>
+        [EnumMember(Value = "8192")]
+        Schedule = 0x2000,
     }
 }

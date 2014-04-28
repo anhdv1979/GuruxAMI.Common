@@ -31,16 +31,21 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using Gurux.Device.Editor;
 using ServiceStack.OrmLite;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
+    [DataContract()]
     [Serializable, Alias("Parameter")]
     public class GXAmiParameter : IHasId<ulong>
 	{
@@ -59,7 +64,7 @@ namespace GuruxAMI.Common
         }
 
         /// <summary>
-        /// Device template ID.
+        /// Device profile ID.
         /// </summary>
         [DataMember, Index(Unique = false), ForeignKey(typeof(GXAmiDevice), OnDelete = "CASCADE")]
         public virtual ulong DeviceID
@@ -111,7 +116,7 @@ namespace GuruxAMI.Common
         /// Type is saves as a string to DB. Use Type instead.
         /// </summary>
         [Alias("Type")]
-        [DataMember(), StringLength(100)]
+        [DataMember(),System.ComponentModel.DataAnnotations.StringLength(100)]
         public string TypeAsString
         {
             get;
@@ -182,6 +187,17 @@ namespace GuruxAMI.Common
             }
         }
 
+        /// <summary>
+        /// Collection of values that parameter can get.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ServiceStack.DataAnnotations.Ignore]
+        public virtual GXAmiValueItem[] Values
+        {
+            get;
+            set;
+        }
+
         public GXAmiParameter Clone()
         {
             GXAmiParameter p = new GXAmiParameter();
@@ -195,6 +211,7 @@ namespace GuruxAMI.Common
             p.TypeAsString = TypeAsString;
             p.Storable = Storable;
             p.Access = Access;
+            p.Values = Values;
             return p;
         }
 	}

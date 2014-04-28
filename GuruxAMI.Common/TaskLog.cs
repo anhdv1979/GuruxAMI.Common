@@ -41,13 +41,30 @@ namespace GuruxAMI.Common
     [Serializable, Alias("TaskLog")]
 	public class GXAmiTaskLog : GXAmiTask
 	{
+        [Alias("ID"), DataMember, Index(Unique = true)]
+        public override ulong Id
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The time when the task was finished.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public DateTime? FinishTime
+        {
+            get;
+            set;
+        }
+
         public GXAmiTaskLog()
         {
 
         }
         public GXAmiTaskLog(GXAmiTask task)
         {
-            Id = 0;
+            Id = task.Id;
             Data = task.Data;
             TaskType = task.TaskType;
             Priority = task.Priority;

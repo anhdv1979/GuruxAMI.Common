@@ -33,16 +33,7 @@
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplatesResponse
+	public class GXDeviceProfilesDeleteResponse
 	{
-		public GXAmiDeviceTemplate[] Templates
-		{
-			get;
-			internal set;
-		}
-		public GXDeviceTemplatesResponse(GXAmiDeviceTemplate[] templates)
-		{
-			this.Templates = templates;
-		}
 	}
 }

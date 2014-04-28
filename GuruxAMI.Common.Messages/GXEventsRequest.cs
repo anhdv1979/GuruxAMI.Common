@@ -30,8 +30,13 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXEventsRequest : IReturn<GXEventsResponse>, IReturn
@@ -39,7 +44,7 @@ namespace GuruxAMI.Common.Messages
         /// <summary>
         /// ListenerGuid Guid
         /// </summary>
-        public Guid ListenerGuid
+        public Guid Instance
         {
             get;
             set;
@@ -48,9 +53,9 @@ namespace GuruxAMI.Common.Messages
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GXEventsRequest(Guid listenerGuid)
+        public GXEventsRequest(Guid instance)
 		{
-            ListenerGuid = listenerGuid;
+            Instance = instance;
 		}
 	}
 }

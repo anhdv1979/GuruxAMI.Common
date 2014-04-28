@@ -36,7 +36,7 @@ namespace GuruxAMI.Common.Messages
     public class GXCreateDeviceResponse
 	{
          /// <summary>
-        /// Device Template Id(s).
+        /// Devices.
         /// </summary>
         public GXAmiDevice[] Devices
 		{

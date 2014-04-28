@@ -31,11 +31,15 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
 using System.ComponentModel.DataAnnotations;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -144,7 +148,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The IP Address of the users computer
         /// </summary>
-        [DataMember, StringLength(30)]
+        [DataMember,System.ComponentModel.DataAnnotations.StringLength(30)]
         public string IP
         {
             get;

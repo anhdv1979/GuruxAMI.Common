@@ -31,49 +31,9 @@
 //---------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.Serialization;
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
-using ServiceStack.DesignPatterns.Model;
-
-namespace GuruxAMI.Common
-{	
-	/// <summary>
-	/// A data contract class representing Data Collector to Device binding object.
-	/// </summary>
-	[DataContract()]
-    [Serializable, Alias("DataCollectorDevice")]
-    public class GXAmiDataCollectorDevice : IHasId<int>
+namespace GuruxAMI.Common.Messages
+{
+	public class GXScheduleActionResponse
 	{
-        [Alias("ID"), AutoIncrement, Index(Unique = true), DataMember]
-        public int Id
-        {
-            get;
-            set;
-        }
-
-		/// <summary>
-		/// The database ID of the device
-		/// </summary>
-        [DataMember]
-        [ForeignKey(typeof(GXAmiDevice), OnDelete = "CASCADE")]
-        public ulong DeviceID
-        {
-            get;
-            set;
-        }
-
-		/// <summary>
-		/// The database ID of the data collector
-		/// </summary>
-        [DataMember]
-        [ForeignKey(typeof(GXAmiDataCollector), OnDelete = "CASCADE")]
-        public ulong DataCollectorID
-        {
-            get;
-            set;
-        }
 	}
 }

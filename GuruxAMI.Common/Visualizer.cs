@@ -1,0 +1,110 @@
+﻿//
+// --------------------------------------------------------------------------
+//  Gurux Ltd
+// 
+//
+//
+// Filename:        $HeadURL$
+//
+// Version:         $Revision$,
+//                  $Date$
+//                  $Author$
+//
+// Copyright (c) Gurux Ltd
+//
+//---------------------------------------------------------------------------
+//
+//  DESCRIPTION
+//
+// This file is a part of Gurux Device Framework.
+//
+// Gurux Device Framework is Open Source software; you can redistribute it
+// and/or modify it under the terms of the GNU General Public License 
+// as published by the Free Software Foundation; version 2 of the License.
+// Gurux Device Framework is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of 
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+// See the GNU General Public License for more details.
+//
+// This code is licensed under the GNU General Public License v2. 
+// Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
+//---------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ServiceStack.DataAnnotations;
+using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
+namespace GuruxAMI.Common
+{   
+    /// <summary>
+    /// Visualizer is used to visialize data.
+    /// </summary>
+    [Serializable, Alias("Visualizer")]
+    public class GXAmiVisualizer // // : IHasId<ulong>
+    {
+        /// <summary>
+        /// Visualizer ID.
+        /// </summary>
+        [Alias("ID"), AutoIncrement, DataMember, Index(true)]
+        public ulong Id
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Visualizer user.
+        /// </summary>
+        [DataMember, Index(Unique = true)]
+        public ulong ParentID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Visualizer type.
+        /// </summary>
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
+        public VisualizerType Type
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Returns type enum valus as integer.
+        /// </summary>
+        [Alias("Type")]
+        [DataMember()]
+        public int TypeAsInt
+        {
+            get
+            {
+                return (int)Type;
+            }
+            set
+            {
+                Type = (VisualizerType)value;
+            }
+        }   
+
+        /// <summary>
+        /// Visualizer settings.
+        /// </summary>
+        [DataMember]
+        public string Settings
+        {
+            get;
+            set;
+        }
+    }
+}

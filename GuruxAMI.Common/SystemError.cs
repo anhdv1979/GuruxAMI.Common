@@ -31,10 +31,15 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
     /// <summary>
@@ -63,6 +68,17 @@ namespace GuruxAMI.Common
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// DataCollector ID of the DC that has cause the exception.
+        /// </summary>
+        [DataMember]
+        [ForeignKey(typeof(GXAmiUser), OnDelete = "CASCADE")]
+        public ulong DataCollectorID
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Time when the error has occurred.
@@ -183,6 +199,27 @@ namespace GuruxAMI.Common
         public GXAmiSystemError(long userId, ActionTargets target, Actions action, Exception ex)
         {
             UserID = userId;
+            Target = target;
+            Action = action;
+            this.TimeStamp = DateTime.Now;
+            this.Parameter = string.Empty;
+            this.CallStack = ex.StackTrace;
+            int len = this.CallStack.Length;
+            if (len > 255)
+            {
+                this.CallStack = this.CallStack.Substring(0, 254);
+            }
+            this.ExceptionType = ex.GetType().ToString();
+            this.Message = ex.Message;
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="ex">Occurred error.</param>
+        public GXAmiSystemError(ulong dataCollectorID, ActionTargets target, Actions action, Exception ex)
+        {
+            DataCollectorID = dataCollectorID;
             Target = target;
             Action = action;
             this.TimeStamp = DateTime.Now;

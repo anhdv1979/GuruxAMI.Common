@@ -28,8 +28,8 @@ namespace GuruxAMI.Common
         }
 
         [DataMember]
-        [ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-        public ulong DeviceTemplateId
+        [ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
+        public ulong DeviceProfileId
         {
             get;
             set;

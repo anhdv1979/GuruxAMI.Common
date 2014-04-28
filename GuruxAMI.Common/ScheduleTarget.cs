@@ -31,16 +31,38 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+using ServiceStack.OrmLite;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
     [Serializable, Alias("ScheduleTarget")]
-    public class GXAmiScheduleTarget
+    public class GXAmiScheduleTarget : IHasId<ulong>
     {
+        [Alias("ID"), AutoIncrement, DataMember]
+        public ulong Id
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Target Schedule.
+        /// </summary>
+        [Alias("ScheduleID"), Index(Unique=false), DataMember, ForeignKey(typeof(GXAmiSchedule), OnDelete = "CASCADE")]
+        public ulong ScheduleId
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// The type of the target
         /// </summary>		
@@ -85,9 +107,10 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Construtor.
         /// </summary>
-        public GXAmiScheduleTarget(TargetType type, ulong targetId)
+        public GXAmiScheduleTarget(GXAmiSchedule schedule, TargetType target, ulong targetId)
         {
-            TargetType = type;
+            TargetType = target;
+            ScheduleId = schedule.Id; 
             TargetID = targetId;
         }
     }

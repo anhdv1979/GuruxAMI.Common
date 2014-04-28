@@ -31,10 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -44,23 +48,35 @@ namespace GuruxAMI.Common
     /// For example when a "Read Device"-button is pressed at UI a task is added to task list.
     /// An eligble Data Collector then proceeds to claim and excute the task.
     /// </summary>
+    [DataContract()]
     [Serializable, Alias("Task")]
 	public class GXAmiTask : IHasId<ulong>
 	{
         /// <summary>
         /// The database ID of the task
         /// </summary>
-        [Alias("ID"), DataMember, AutoIncrement, Index(Unique = false)]
-		public virtual ulong Id
+        [Alias("ID"), DataMember, AutoIncrement, Index(Unique = true)]        
+        public virtual ulong Id
 		{
 			get;
 			set;
 		}
 
         /// <summary>
+        /// ReplyID is used if task is reply for a sent task.
+        /// </summary>
+        [Alias("ReplyID"), DataMember]
+        public virtual ulong ReplyId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Task data.
         /// </summary>
-        [ServiceStack.DataAnnotations.Ignore, DataMember]
+        [ServiceStack.DataAnnotations.Ignore]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public string Data
         {
             get;
@@ -80,8 +96,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Returns TaskType enum valus as integer.
         /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         [Alias("TaskType")]
-        [DataMember()]
         public int TaskTypeAsInt
         {
             get
@@ -97,7 +113,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Task priority
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int Priority
 		{
 			get;
@@ -117,8 +133,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Returns TargetType enum valus as integer.
         /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         [Alias("TargetType")]
-        [DataMember()]
         public int TargetTypeAsInt
         {
             get
@@ -134,18 +150,39 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The database ID of the target
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public ulong TargetID
 		{
 			get;
 			set;
 		}
-        
+
+        /// <summary>
+        /// Task sender as string.
+        /// </summary>
+        [ServiceStack.DataAnnotations.Ignore, DataMember]
+        public string SenderAsString
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Task target as string.
+        /// </summary>
+        [ServiceStack.DataAnnotations.Ignore, DataMember]
+        public string TargetAsString
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// The database ID of the device containing the target.
         /// </summary>		
-        //TODO: Remove tasks from the device when device is removed. 
-		public ulong TargetDeviceID
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ForeignKey(typeof(GXAmiDevice), OnDelete = "CASCADE")]
+        public ulong? TargetDeviceID
 		{
 			get;
 			set;
@@ -154,7 +191,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The database ID of the user issuing the task.
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public long UserID
 		{
 			get;
@@ -162,10 +199,20 @@ namespace GuruxAMI.Common
 		}
 
         /// <summary>
-        /// The database ID of the sender data collector.
+        /// The Guid of the sender data collector.
         /// </summary>
-        [DataMember]        
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public Guid SenderDataCollectorGuid
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The Guid of the client listener.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public Guid Instance
         {
             get;
             set;
@@ -185,7 +232,7 @@ namespace GuruxAMI.Common
         /// Returns State enum valus as integer.
         /// </summary>
         [Alias("State")]
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int StateAsInt
         {
             get
@@ -201,7 +248,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The database ID of a DC that has claimed the task.
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public ulong DataCollectorID
 		{
 			get;
@@ -211,7 +258,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Target DC guid.
         /// </summary>
-        [DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public Guid DataCollectorGuid
         {
             get;
@@ -221,7 +268,8 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The time when the task was created
         /// </summary>
-        [DataMember, Index(Unique = false)]
+        [Index(Unique = false)]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime CreationTime
 		{
 			get;
@@ -231,7 +279,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The time when a data collector has claimed the task. Null if that hasn't happened yet.
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime? ClaimTime
 		{
 			get;
@@ -241,19 +289,27 @@ namespace GuruxAMI.Common
         /// <summary>
         /// The time when the task expires.
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime? ExpirationTime
 		{
 			get;
 			set;
 		}
 
-        public GXAmiTask(TaskType taskType, Guid guid, string data)
+        public override string ToString()
         {
+            return Id.ToString() + " " + TaskType.ToString();
+        }
+
+        public GXAmiTask(Guid instance, TaskType taskType, Guid guid, string data)
+        {
+            Instance = instance;
             TargetType = TargetType.DataCollector;
             this.TaskType = taskType;
             Data = data;
-            if (taskType == TaskType.MediaOpen || 
+            if (taskType == TaskType.MediaGetProperty ||
+                taskType == TaskType.MediaSetProperty || 
+                taskType == TaskType.MediaOpen || 
                 taskType == TaskType.MediaClose ||
                 taskType == TaskType.MediaWrite ||
                 taskType == TaskType.MediaError ||
@@ -269,8 +325,9 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Parametrized constructor
         /// </summary>
-		public GXAmiTask(TaskType taskType, object target)
+        public GXAmiTask(Guid instance, TaskType taskType, object target)
 		{
+            Instance = instance;
 			this.TaskType = taskType;
             ulong mask = 0xFFFF;
             if (target is GXAmiDeviceGroup)
@@ -301,6 +358,11 @@ namespace GuruxAMI.Common
                 this.TargetID = (ulong)(target as GXAmiPropertyTemplate).Id;
                 this.TargetDeviceID = (this.TargetID & ~mask);
             }
+            else if (target is GXAmiSchedule)
+            {
+                this.TargetType = TargetType.Schedule;
+                this.TargetID = (ulong)(target as GXAmiSchedule).Id;
+            }            
             if (this.TargetID == 0 || this.TargetType == TargetType.None)
             {
                 throw new Exception("Invalid target");
@@ -321,6 +383,7 @@ namespace GuruxAMI.Common
         public GXAmiTask Clone()
         {
             GXAmiTask task = new GXAmiTask();
+            task.Instance = Instance; 
             task.Data = Data;
             task.TaskType = TaskType;
             task.Priority = Priority;

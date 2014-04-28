@@ -31,18 +31,51 @@
 //---------------------------------------------------------------------------
 
 using System;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 namespace GuruxAMI.Common.Messages
 {
 	public class GXTasksResponse
 	{
-		public GXAmiTask[] Tasks
+		public object[] Items
 		{
 			get;
 			internal set;
 		}
+
+        [XmlIgnore()]
+        [IgnoreDataMember()]
+        public GXAmiTask[] Tasks
+        {
+            get
+            {
+                GXAmiTask[] tmp = new GXAmiTask[Items.Length];
+                if (Items.Length != 0)
+                {
+                    System.Array.Copy(Items, tmp, Items.Length);
+                }
+                return tmp;                
+            }
+        }
+
+        [XmlIgnore()]
+        [IgnoreDataMember()]
+        public GXAmiTaskLog[] Log
+        {
+            get
+            {
+                GXAmiTaskLog[] tmp = new GXAmiTaskLog[Items.Length];
+                if (Items.Length != 0)
+                {
+                    System.Array.Copy(Items, tmp, Items.Length);
+                }
+                return tmp;
+            }
+        }
+
 		public GXTasksResponse(GXAmiTask[] tasks)
-		{
-			this.Tasks = tasks;
+		{            
+            this.Items = tasks;
 		}
 	}
 }

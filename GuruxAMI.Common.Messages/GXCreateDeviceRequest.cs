@@ -30,29 +30,34 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXCreateDeviceRequest : IReturn<GXCreateDeviceResponse>, IReturn
 	{
         /// <summary>
-        /// Device Template Id(s).
+        /// Device profile Id(s).
         /// </summary>
         public ulong[] Ids
 		{
 			get;
 			internal set;
 		}
-		public GXCreateDeviceRequest(GXAmiDeviceTemplate[] templates)
+		public GXCreateDeviceRequest(GXAmiDeviceProfile[] profiles)
 		{
-			if (templates != null)
+			if (profiles != null)
 			{
 				int pos = -1;
-                this.Ids = new ulong[templates.Length];
-				for (int i = 0; i < templates.Length; i++)
+                this.Ids = new ulong[profiles.Length];
+				for (int i = 0; i < profiles.Length; i++)
 				{
-					this.Ids[++pos] = templates[i].Id;
+					this.Ids[++pos] = profiles[i].Id;
 				}
 			}
 		}

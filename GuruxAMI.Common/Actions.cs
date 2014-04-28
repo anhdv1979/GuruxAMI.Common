@@ -33,40 +33,49 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace GuruxAMI.Common
 {
     [Flags]
+    [DataContract()]
     public enum Actions
     {
         /// <summary>
         /// None action.
         /// </summary>
+        [EnumMember(Value = "0")]
         None = 0x0,
         /// <summary>
         /// Items was retreaved.
         /// </summary>
+        [EnumMember(Value = "1")]
         Get = 0x1,
         /// <summary>
         /// New item is added.
         /// </summary>
+        [EnumMember(Value = "2")]
         Add = 0x2, 
         /// <summary>
         /// Item is edit.
         /// </summary>
+        [EnumMember(Value = "4")]
         Edit = 0x4,
         /// <summary>
         /// Item is removed.
         /// </summary>
+        [EnumMember(Value = "8")]
         Remove = 0x8,
         /// <summary>
         /// Device is read or write.
         /// </summary>
+        [EnumMember(Value = "16")]
         Transaction = 0x10,
         /// <summary>
-        /// Device or DC state is change.
+        /// Device, schedule or DC state is changed.
         /// </summary>
+        [EnumMember(Value = "32")]
         State = 0x20,
     }
 }

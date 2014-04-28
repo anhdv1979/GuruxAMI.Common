@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -53,11 +53,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>packages\ServiceStack.3.9.71\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Interfaces">
-      <HintPath>packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>packages\ServiceStack.OrmLite.MySql.3.9.45\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>packages\ServiceStack.OrmLite.SqlServer.3.9.71\lib\net35\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -73,18 +76,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleActionRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXScheduleActionResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceGroupToUserGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceGroupToUserGroupResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceToDeviceGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddDeviceToDeviceGroupResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddUserToUserGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXAddUserToUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilesDataRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilesDataResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilesDeleteRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilesDeleteResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilessRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXDeviceProfilessResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceFromDeviceGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceFromDeviceGroupResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceGroupFromUserGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveDeviceGroupFromUserGroupResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveUserFromUserGroupRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXRemoveUserFromUserGroupResponse.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXSearchRequest.cs" />
+    <Compile Include="GuruxAMI.Common.Messages\GXSearchResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTracesRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTracesResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTraceAddRequest.cs" />
@@ -103,8 +116,6 @@
     <Compile Include="GuruxAMI.Common.Messages\GXDeviceStateUpdateResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTableRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXTableResponse.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGetRequest.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceGetResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXValuesRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXValuesResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXIsDatabaseCreatedRequest.cs" />
@@ -112,8 +123,6 @@
     <Compile Include="GuruxAMI.Common.Messages\GXValuesUpdateRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXValuesUpdateResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXClaimedTask.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDataRequest.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDataResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXCreateDeviceRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXCreateDeviceResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXEventsRegisterRequest.cs" />
@@ -149,10 +158,6 @@
     <Compile Include="GuruxAMI.Common.Messages\GXDeviceGroupUpdateResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXDevicesRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXDevicesResponse.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDeleteRequest.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateDeleteResponse.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplatesRequest.cs" />
-    <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplatesResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateUpdateRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXDeviceTemplateUpdateResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXDeviceUpdateRequest.cs" />
@@ -187,22 +192,29 @@
     <Compile Include="GuruxAMI.Common.Messages\GXUsersResponse.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXUserUpdateRequest.cs" />
     <Compile Include="GuruxAMI.Common.Messages\GXUserUpdateResponse.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceContentType.cs" />
     <Compile Include="GuruxAMI.Common\Actions.cs" />
     <Compile Include="GuruxAMI.Common\AutoConnect.cs" />
     <Compile Include="GuruxAMI.Common\ActionTarget.cs" />
     <Compile Include="GuruxAMI.Common\DataCollector.cs" />
-    <Compile Include="GuruxAMI.Common\DataCollectorDevice.cs" />
+    <Compile Include="GuruxAMI.Common\DataCollectorError.cs" />
     <Compile Include="GuruxAMI.Common\DataCollectorUserGroup.cs" />
+    <Compile Include="GuruxAMI.Common\DataRow.cs" />
+    <Compile Include="GuruxAMI.Common\DataTable.cs" />
+    <Compile Include="GuruxAMI.Common\DataTableTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\DataValue.cs" />
     <Compile Include="GuruxAMI.Common\Device.cs" />
     <Compile Include="GuruxAMI.Common\DeviceError.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceErrorLog.cs" />
     <Compile Include="GuruxAMI.Common\DeviceGroup.cs" />
     <Compile Include="GuruxAMI.Common\DeviceGroupDevice.cs" />
-    <Compile Include="GuruxAMI.Common\DeviceTemplate.cs" />
-    <Compile Include="GuruxAMI.Common\GXAmiDataCollectorError.cs" />
-    <Compile Include="GuruxAMI.Common\GXAmiDeviceTemplateDataBlock.cs" />
-    <Compile Include="GuruxAMI.Common\GXAmiMediaType.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceMedia.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceProfile.cs" />
+    <Compile Include="GuruxAMI.Common\DeviceProfilesDataBlock.cs" />
+    <Compile Include="GuruxAMI.Common\ValueItem.cs" />
     <Compile Include="GuruxAMI.Common\LatestValue.cs" />
     <Compile Include="GuruxAMI.Common\MediaSettingsTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\MediaType.cs" />
     <Compile Include="GuruxAMI.Common\Parameter.cs" />
     <Compile Include="GuruxAMI.Common\ParameterTemplate.cs" />
     <Compile Include="GuruxAMI.Common\Property.cs" />
@@ -211,6 +223,8 @@
     <Compile Include="GuruxAMI.Common\PropertyTemplate.cs" />
     <Compile Include="GuruxAMI.Common\Schedule.cs" />
     <Compile Include="GuruxAMI.Common\ScheduleTarget.cs" />
+    <Compile Include="GuruxAMI.Common\SearchOperator.cs" />
+    <Compile Include="GuruxAMI.Common\SearchType.cs" />
     <Compile Include="GuruxAMI.Common\SystemError.cs" />
     <Compile Include="GuruxAMI.Common\TargetType.cs" />
     <Compile Include="GuruxAMI.Common\Task.cs" />
@@ -225,10 +239,12 @@
     <Compile Include="GuruxAMI.Common\UserActionLog.cs" />
     <Compile Include="GuruxAMI.Common\UserGroup.cs" />
     <Compile Include="GuruxAMI.Common\UserGroupDeviceGroup.cs" />
-    <Compile Include="GuruxAMI.Common\UserGroupDeviceTemplate.cs" />
+    <Compile Include="GuruxAMI.Common\UserGroupDeviceGroups.cs" />
     <Compile Include="GuruxAMI.Common\UserGroupScheduleItem.cs" />
     <Compile Include="GuruxAMI.Common\UserGroupUser.cs" />
     <Compile Include="GuruxAMI.Common\ValueLog.cs" />
+    <Compile Include="GuruxAMI.Common\Visualizer.cs" />
+    <Compile Include="GuruxAMI.Common\VisualizerType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -31,36 +31,34 @@
 //---------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Runtime.Serialization;
-using ServiceStack.DataAnnotations;
-using ServiceStack.OrmLite;
 
 namespace GuruxAMI.Common
 {
-    [Serializable, Alias("UserGroupDeviceTemplate")]
-	public class GXAmiUserGroupDeviceTemplate
-	{
-        [Alias("ID"), AutoIncrement, Index(Unique = true), DataMember]
-        public long Id
-        {
-            get;
-            set;
-        }
-
-		[DataMember]
-        [ForeignKey(typeof(GXAmiUserGroup), OnDelete = "CASCADE")]
-		public long UserGroupID
-		{
-			get;
-			set;
-		}
-
-		[DataMember]
-        [ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-		public ulong DeviceTemplateID
-		{
-			get;
-			set;
-		}
-	}
+    /// <summary>
+    /// What is searched.
+    /// </summary>
+    [Flags]
+    [DataContract()]
+    public enum SearchType
+    {
+        /// <summary>
+        /// All field are searched.
+        /// </summary>
+        [EnumMember(Value = "-1")]
+        All = -1,
+        /// <summary>
+        /// Search is made using name.
+        /// </summary>
+        [EnumMember(Value = "1")]
+        Name = 0x1,
+        /// <summary>
+        /// Search is made using description.
+        /// </summary>
+        [EnumMember(Value = "2")]
+        Description = 0x2
+    }
 }

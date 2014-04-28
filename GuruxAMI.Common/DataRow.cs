@@ -1,4 +1,4 @@
-﻿//
+//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
 // 
@@ -31,87 +31,53 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+using System.ComponentModel.DataAnnotations;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
-{
-    [Serializable, Alias("DataCollectorError")]
-    public class GXAmiDataCollectorError : IHasId<uint>
+{    
+    [Serializable, Alias("DataRow")]
+    public class GXAmiDataRow : GXAmiDataValue
     {
-        /// <summary>
-        /// The database ID of the error log entry
-        /// </summary>
-        [Alias("ID"), AutoIncrement, DataMember]
-        public uint Id
+        [Alias("ID"), DataMember, AutoIncrement(), Index()]
+        public virtual ulong Id
         {
             get;
             set;
         }
 
         /// <summary>
-        /// The database ID of the task of the error log entry 
-        /// </summary>
-        [DataMember]
-        [ForeignKey(typeof(GXAmiTaskLog), OnDelete = "CASCADE")]
-        public ulong TaskID
+        /// In what table this property belongs.
+        /// </summary>        
+        [DataMember, Index(Unique = false), ForeignKey(typeof(GXAmiDataTable), OnDelete = "CASCADE")]
+        public virtual ulong TableID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// The database ID of the device containing the target.
+        /// Column Index.
         /// </summary>
         [DataMember]
-        public ulong DataCollectorID
+        public uint ColumnIndex
         {
             get;
             set;
         }
 
         /// <summary>
-        /// The time when the error occurred
+        /// Row index.
         /// </summary>
-        [DataMember]
-        public DateTime TimeStamp
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The description of the error
-        /// </summary>
-        [DataMember]
-        public string Message
-        {
-            get;
-            set;
-        }
-
-
-        [DataMember]
-        public string Source
-        {
-            get;
-            set;
-        }
-
-        [DataMember]
-        public string StackTrace
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The severity of the error
-        /// </summary>
-        [DataMember]
-        public int Severity
+        [DataMember, Index(Unique = false)]
+        public uint RowIndex
         {
             get;
             set;
@@ -120,21 +86,21 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GXAmiDataCollectorError()
+        public GXAmiDataRow()
         {
         }
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GXAmiDataCollectorError(ulong taskID, ulong dataCollectorID, Exception ex)
+        public GXAmiDataRow(ulong tableID, ulong propertyID, string value, uint rowIndex, uint columnIndex)
         {
-            TaskID = taskID;
-            DataCollectorID = dataCollectorID;
-            TimeStamp = DateTime.Now;
-            Message = ex.Message;
-            Source = ex.Source;
-            StackTrace = ex.StackTrace;
+            TableID = tableID;
+            RowIndex = rowIndex;
+            PropertyID = propertyID;
+            UIValue = value;
+            ColumnIndex = columnIndex;
         }
-    }
+
+    }    
 }

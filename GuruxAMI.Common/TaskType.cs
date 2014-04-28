@@ -44,92 +44,87 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Task type is not set.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "0")]
         None,
         /// <summary>
         /// Read target, ie. a device or a property.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "1")]
         Read,
         /// <summary>
         /// Write target, ie. a device or a property.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "2")]
         Write,
         /// <summary>
         /// Start monitoring a device,
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "3")]
         StartMonitor,
         /// <summary>
         /// Stop monitoring a device,
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "4")]
         StopMonitor,
         /// <summary>
-        /// Start a schedule.
+        /// Update a profile.
         /// </summary>
-        [EnumMember]
-        StartSchedule,
-        /// <summary>
-        /// Stop a schedule.
-        /// </summary>
-        [EnumMember]
-        StopSchedule,
-        /// <summary>
-        /// Run a schedule once.
-        /// </summary>
-        [EnumMember]
-        RunSchedule,
-        /// <summary>
-        /// Update a template.
-        /// </summary>
-        [EnumMember]
-        TemplateUpdate,
+        [EnumMember(Value = "5")]
+        ProfileUpdate,
         /// <summary>
         /// Update a device.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "6")]
         ForceDeviceUpdate,
         /// <summary>
         /// Install a software package.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "7")]
         InstallSoftware,
         /// <summary>
         /// Uninstall a software package.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "8")]
         UninstallSoftware,
         /// <summary>
         /// Restart data collector.
         /// </summary>        
-        [EnumMember]
+        [EnumMember(Value = "9")]
         Restart,
+        /// <summary>
+        /// Get Media property
+        /// </summary>
+        [EnumMember(Value = "10")]
+        MediaGetProperty,        
+        /// <summary>
+        /// Set Media property
+        /// </summary>
+        [EnumMember(Value = "11")]
+        MediaSetProperty,
         /// <summary>
         /// Open the media.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "12")]
         MediaOpen,
         /// <summary>
         /// Close the media.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "13")]
         MediaClose,
         /// <summary>
         /// Write byte array to the media.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "14")]
         MediaWrite,
         /// <summary>
         /// Media state is changed.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "15")]
         MediaState,
         /// <summary>
         /// Media error is occurred.
         /// </summary>
-        [EnumMember]
-        MediaError,
+        [EnumMember(Value = "16")]
+        MediaError
     }
 }

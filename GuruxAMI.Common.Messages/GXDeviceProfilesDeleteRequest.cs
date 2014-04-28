@@ -31,18 +31,38 @@
 //---------------------------------------------------------------------------
 
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplateDataResponse
+	public class GXDeviceProfilesDeleteRequest : IReturn<GXDeviceProfilesDeleteResponse>, IReturn
 	{
-		public byte[] Data
+        public ulong[] DeviceProfileIDs
 		{
 			get;
 			internal set;
 		}
-        public GXDeviceTemplateDataResponse(byte[] data)
+		public bool Permanently
 		{
-            this.Data = data;
+			get;
+			set;
+		}
+        public GXDeviceProfilesDeleteRequest(GXAmiDeviceProfile[] profiles, bool permanently)
+		{
+            Permanently = permanently;
+			if (profiles != null)
+			{
+				int pos = -1;
+                this.DeviceProfileIDs = new ulong[profiles.Length];
+				for (int i = 0; i < profiles.Length; i++)
+				{
+					this.DeviceProfileIDs[++pos] = profiles[i].Id;
+				}
+			}
 		}
 	}
 }

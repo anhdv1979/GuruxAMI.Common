@@ -30,43 +30,19 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplateDataRequest : IReturn<GXDeviceTemplateDataResponse>, IReturn
+	public class GXDeviceProfilesDataResponse
 	{
-        /// <summary>
-        /// Device ID.
-        /// </summary>
-		public ulong DeviceId
+		public byte[] Data
 		{
 			get;
 			internal set;
 		}
-
-        public Guid DeviceTemplateGuid
-        {
-            get;
-            internal set;
-        }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public GXDeviceTemplateDataRequest(ulong deviceId)
+        public GXDeviceProfilesDataResponse(byte[] data)
 		{
-            DeviceId = deviceId;
+            this.Data = data;
 		}
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="deviceTemplateGuid"></param>
-        public GXDeviceTemplateDataRequest(Guid deviceTemplateGuid)
-        {
-            DeviceTemplateGuid = deviceTemplateGuid;
-        }
-
 	}
 }

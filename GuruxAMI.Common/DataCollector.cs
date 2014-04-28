@@ -31,7 +31,11 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 using System;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
@@ -43,6 +47,12 @@ namespace GuruxAMI.Common
     [Alias("DataCollector")]    
     public class GXAmiDataCollector : IHasId<ulong>
 	{
+        /// <summary>
+        /// Data collector ID.
+        /// </summary>
+        /// <remarks>
+        /// This is used in DB.
+        /// </remarks>
         [Alias("ID"), AutoIncrement, DataMember]
 		public ulong Id
 		{
@@ -50,6 +60,9 @@ namespace GuruxAMI.Common
 			set;
 		}
 		
+        /// <summary>
+        /// Name of data collector.
+        /// </summary>
         [DataMember]
 		public string Name
 		{
@@ -57,6 +70,9 @@ namespace GuruxAMI.Common
 			set;
 		}
 		
+        /// <summary>
+        /// Data collector description.
+        /// </summary>
         [DataMember]
 		public string Description
 		{
@@ -76,7 +92,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Each data collector has unique identifier.
         /// </summary>
-        [DataMember]
+        [DataMember, Index(Unique=true)]
         public Guid Guid
         {
             get;
@@ -103,6 +119,9 @@ namespace GuruxAMI.Common
             set;
         }
 		
+        /// <summary>
+        /// Last time when DC make connection to the GuruxAMI server.
+        /// </summary>
         [DataMember]
 		public DateTime? LastRequestTimeStamp
 		{
@@ -113,7 +132,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Data collector's last IP address.
         /// </summary>
-        [DataMember, StringLength(30)]
+        [DataMember, System.ComponentModel.DataAnnotations.StringLength(30)]
 		public string IP
 		{
 			get;
@@ -123,7 +142,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Data collector's last MAC address.
         /// </summary>
-		[DataMember, StringLength(40)]
+        [DataMember, System.ComponentModel.DataAnnotations.StringLength(40)]
 		public string MAC
 		{
 			get;
@@ -131,10 +150,23 @@ namespace GuruxAMI.Common
 		}
 
         /// <summary>
-        /// Device state.
+        /// State of data collector.
         /// </summary>
         [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
         public DeviceStates State
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Is DC started as internal.
+        /// </summary>
+        /// <remarks>
+        /// This value is runtime value only.
+        /// </remarks>
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
+        public bool Internal
         {
             get;
             set;
@@ -213,7 +245,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Date and time when the data collector was removed.
         /// </summary>      
-        [DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public DateTime? Removed
         {
             get;
@@ -247,8 +279,7 @@ namespace GuruxAMI.Common
             item.Id = Id;
             item.Guid = Guid;
             item.SerialPorts = SerialPorts;            
-            item.Medias = Medias;
-            item.LastRequestTimeStamp = LastRequestTimeStamp;
+            item.Medias = Medias;            
             item.MAC = MAC;
             item.UnAssigned = UnAssigned;
             item.Added = Added;

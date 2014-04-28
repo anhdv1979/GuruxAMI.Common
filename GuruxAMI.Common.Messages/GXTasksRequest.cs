@@ -30,7 +30,12 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
+#if !SS4
 using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 using System;
 namespace GuruxAMI.Common.Messages
 {
@@ -42,7 +47,7 @@ namespace GuruxAMI.Common.Messages
         public bool Log
         {
             get;
-            internal set;
+            set;
         }
 
         public ulong[] DeviceIDs
@@ -105,6 +110,16 @@ namespace GuruxAMI.Common.Messages
             get;
             set;
         }
+
+        /// <summary>
+        /// Are tasks received as descending order.
+        /// </summary>
+        public bool Descending
+        {
+            get;
+            set;
+        }
+        
 
         /// <summary>
         /// Get all tasks by state.
@@ -184,7 +199,7 @@ namespace GuruxAMI.Common.Messages
 		}
 
         /// <summary>
-        /// Get user group tasks by state.
+        /// Get tasks by id.
         /// </summary>
         public GXTasksRequest(ulong[] tasks, bool log)
         {

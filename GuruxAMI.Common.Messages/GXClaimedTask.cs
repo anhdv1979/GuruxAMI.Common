@@ -41,6 +41,14 @@ namespace GuruxAMI.Common.Messages
     public class GXClaimedTask
     {        
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GXClaimedTask()
+        {
+            MediaSettings = new List<KeyValuePair<string, string>>();
+        }
+
+        /// <summary>
         /// Task to handle.
         /// </summary>
         public GXAmiTask Task
@@ -56,9 +64,9 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
-        /// Guid of device template.
+        /// Guid of device Profile.
         /// </summary>
-        public Guid DeviceTemplate
+        public Guid DeviceProfile
         {
             get;
             set;
@@ -73,23 +81,11 @@ namespace GuruxAMI.Common.Messages
             set;
         }
 
-        /// <summary>
-        /// Media name.
-        /// </summary>
-        public string Media
+        public List<KeyValuePair<string, string>> MediaSettings
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// Media communication settings.
-        /// </summary>
-        public string Settings
-        {
-            get;
-            set;
-        }
+        }        
 
         /// <summary>
         /// Data to send.

@@ -44,17 +44,17 @@ namespace GuruxAMI.Common.Messages
 		}
 
         /// <summary>
-        /// DataCollector Guid
+        /// Instance that is notified.
         /// </summary>
-        public Guid DataCollectorGuid
+        public Guid Instance
         {
             get;
             set;
         } 
 
-        public GXEventsResponse(GXEventsItem[] actions, Guid guid)
+        public GXEventsResponse(GXEventsItem[] actions, Guid instance)
 		{
-            DataCollectorGuid = guid;
+            Instance = instance;
             this.Actions = actions;
 		}
 	}

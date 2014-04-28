@@ -31,11 +31,16 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Gurux.Device;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+using ServiceStack.OrmLite;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -49,6 +54,9 @@ namespace GuruxAMI.Common
 			set;
 		}
 
+        /// <summary>
+        /// Name of schedule.
+        /// </summary>
 		[DataMember]
 		public string Name
 		{
@@ -56,6 +64,9 @@ namespace GuruxAMI.Common
 			set;
 		}
 		
+        /// <summary>
+        /// Schedule description.
+        /// </summary>
         [DataMember]
 		public string Description
 		{
@@ -70,10 +81,49 @@ namespace GuruxAMI.Common
         ///<remarks>
         ///Multiple days can be specified.
         ///</remarks>        
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
         public System.DayOfWeek[] DayOfWeeks
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Returns AutoConnect enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("DayOfWeeks")]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public int DayOfWeeksAsInt
+        {
+            get
+            {
+                int value = 0;
+                if (DayOfWeeks != null)
+                {
+                    foreach (System.DayOfWeek it in DayOfWeeks)
+                    {
+                        value |= (1 << ((int)it));
+                    }
+                }
+                return value;
+            }
+            set
+            {
+                List<System.DayOfWeek> list = new List<DayOfWeek>();
+                int tmp;
+                for (int pos = 0; pos != 7; ++pos)
+                {
+                    tmp = value & (1 << pos);
+                    if (tmp != 0)
+                    {
+                        list.Add((DayOfWeek) pos);
+                    }
+                }
+                DayOfWeeks = list.ToArray();
+            }
         }
 
         ///<summary>
@@ -94,19 +144,35 @@ namespace GuruxAMI.Common
             set;
         }
 
-		[DataMember]
+        /// <summary>
+        /// Action to execute.
+        /// </summary>
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
 		public ScheduleAction Action
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
-        public ScheduleRepeat Repeat
-		{
-			get;
-			set;
-		}
+        /// <summary>
+        /// Returns Action enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("Action")]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public virtual int ActionAsInt
+        {
+            get
+            {
+                return (int)Action;
+            }
+            set
+            {
+                Action = (ScheduleAction)value;
+            }
+        }
 
 		[DataMember]
 		public int Interval
@@ -116,48 +182,109 @@ namespace GuruxAMI.Common
 		}
 
         ///<summary>
-        ///RepeatMode determines the repeat mode of a GXSchedule.
+        ///How often schedule is executed.
         ///</summary>        
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
         public ScheduleRepeat RepeatMode
         {
             get;
             set;
-        }   
+        }
 
-		[DataMember]
-		public DateTime TransactionStartTime
+        /// <summary>
+        /// Returns RepeatMode enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("RepeatMode")]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public virtual int AutoConnectAsInt
+        {
+            get
+            {
+                return (int)RepeatMode;
+            }
+            set
+            {
+                RepeatMode = (ScheduleRepeat)value;
+            }
+        }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+		public DateTime? TransactionStartTime
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
-		public DateTime TransactionEndTime
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+		public DateTime? TransactionEndTime
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
-		public DateTime ScheduleStartTime
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+		public DateTime? ScheduleStartTime
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
-		public DateTime ScheduleEndTime
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+		public DateTime? ScheduleEndTime
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
+        /// <summary>
+        /// When schedule is executed next time.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public DateTime? NextRunTine
+        {
+            get;
+            set;
+        }
+
+        ///<summary>
+        ///When schedule was last executed.
+        ///</summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public DateTime? LastRunTime
+        {
+            get;
+            set;
+        }
+
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
 		public DayOfWeek DayOfWeek
 		{
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// Returns DayOfWeek enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("DayOfWeek")]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public virtual int DayOfWeekAsInt
+        {
+            get
+            {
+                return (int)DayOfWeek;
+            }
+            set
+            {
+                DayOfWeek = (DayOfWeek)value;
+            }
+        }
 
 		[DataMember]
 		public int DayOfMonth
@@ -165,21 +292,10 @@ namespace GuruxAMI.Common
 			get;
 			set;
 		}
-
-		[DataMember]
-        public ScheduleState State
-		{
-			get;
-			set;
-		}
-
-		[DataMember]
-		public DateTime StateTimeStamp
-		{
-			get;
-			set;
-		}
-		
+        
+        /// <summary>
+        /// When schedule item was added.
+        /// </summary>
 		[DataMember]
 		public DateTime Added
 		{
@@ -187,19 +303,67 @@ namespace GuruxAMI.Common
 			set;
 		}
 
-		[DataMember]
+        /// <summary>
+        /// When schedule item is removed.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime? Removed
 		{
 			get;
 			set;
-		}        
+		}
 
-		[DataMember]
-		public List<GXAmiScheduleTarget> Targets
+        /// <summary>
+        /// Schedule targets.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ServiceStack.DataAnnotations.Ignore]
+		public GXAmiScheduleTarget[] Targets
 		{
 			get;
 			set;
-		}        
+		}
+
+        ///<summary>
+        ///Status is the current state of the schedule item.
+        ///</summary>
+        [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
+        public ScheduleState Status
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Returns status enum valus as integer.
+        /// </summary>
+        /// <remarks>
+        /// This value is saved to the DB.
+        /// </remarks>
+        [Alias("Status")]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        public virtual int StatusAsInt
+        {
+            get
+            {
+                return (int)Status;
+            }
+            set
+            {
+                Status = (ScheduleState)value;
+            }
+        }
+
+        /// <summary>
+        /// Data collector ID where schedule is executed in or null if schedule is executed in 
+        /// GuruxAMI server.
+        /// </summary>
+        [DataMember, ForeignKey(typeof(GXAmiDataCollector), OnDelete = "CASCADE")]
+        public ulong? TargetDC
+        {
+            get;
+            set;
+        }        
 
         ///<summary>
         ///FailWaitTime determines for how long a time (in ms) is waited before devices
@@ -264,36 +428,16 @@ namespace GuruxAMI.Common
 		public GXAmiSchedule()
 		{
 			this.Action = ScheduleAction.Read;
+            TransactionCount = 1;
 			this.Interval = 1;
-			this.TransactionStartTime = DateTime.MinValue;
-			this.TransactionEndTime = DateTime.MaxValue;
-            this.Repeat = ScheduleRepeat.Once;
+			this.TransactionStartTime = null;
+            this.TransactionEndTime = null;
+            this.RepeatMode = ScheduleRepeat.Once;
 			this.DayOfWeek = DayOfWeek.Sunday;
 			this.DayOfMonth = 1;
-			this.ScheduleStartTime = DateTime.MinValue;
-            this.ScheduleEndTime = DateTime.MaxValue;
-			this.Targets = new List<GXAmiScheduleTarget>();
-		}
-
-        /// <summary>
-        /// Get schedule expiration time.
-        /// </summary>
-        /// <returns></returns>
-		public DateTime? GetScheduleExpirationTime()
-		{
-			DateTime? expirationTime = null;
-			if (this.Repeat == ScheduleRepeat.Day || this.Repeat == ScheduleRepeat.Week || this.Repeat == ScheduleRepeat.Month)
-			{
-				expirationTime = new DateTime?(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day));
-				expirationTime = new DateTime?(expirationTime.Value.AddHours((double)this.TransactionEndTime.Hour));
-				expirationTime = new DateTime?(expirationTime.Value.AddMinutes((double)this.TransactionEndTime.Minute));
-				expirationTime = new DateTime?(expirationTime.Value.AddSeconds((double)this.TransactionEndTime.Second));
-				if (this.TransactionStartTime > this.TransactionEndTime)
-				{
-					expirationTime = new DateTime?(expirationTime.Value.AddDays(1.0));
-				}
-			}
-			return expirationTime;
-		}
+            this.ScheduleStartTime = null;
+            this.ScheduleEndTime = null;
+			this.Targets = null;
+		}       
 	}
 }

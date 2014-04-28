@@ -31,10 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -70,7 +74,8 @@ namespace GuruxAMI.Common
         /// The database ID of the device containing the target.
         /// </summary>
         [DataMember]
-        public ulong TargetDeviceID
+        [ForeignKey(typeof(GXAmiDevice), OnDelete = "CASCADE")]
+        public ulong? TargetDeviceID
         {
             get;
             set;
@@ -80,7 +85,8 @@ namespace GuruxAMI.Common
         /// The database ID of the Data Collector.
         /// </summary>
         [DataMember]
-        public ulong DataCollectorID
+        [ForeignKey(typeof(GXAmiDataCollector), OnDelete = "CASCADE")]
+        public ulong? DataCollectorID
         {
             get;
             set;

@@ -1,4 +1,4 @@
-//
+﻿//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
 // 
@@ -30,132 +30,102 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ServiceStack.DataAnnotations;
 using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
 using ServiceStack.OrmLite;
-using Gurux.Device;
-using System.ComponentModel;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
-    [Serializable, Alias("DeviceTemplate")]
-    public class GXAmiDeviceTemplate : GXAmiDevice, IHasId<ulong>
-	{
-        [Alias("ID"), AutoIncrement, DataMember]
-        public override ulong Id
-		{
-			get;
-			set;
-		}
-
-        /// <summary>
-        /// Protocol name.
-        /// </summary>
-        [DataMember]
-        public override string Protocol
+    [DataContract()]
+    [Serializable, Alias("DeviceMedia")]
+    public class GXAmiDeviceMedia : IHasId<ulong>
+    {
+        [Alias("ID"), DataMember, AutoIncrement, Index(true)]
+        public virtual ulong Id
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Device template name.
+        /// Data collector ID.
         /// </summary>
-        [DataMember]
-        public override string Template
+        [DataMember(), Index(Unique = false)]
+        [ForeignKey(typeof(GXAmiDataCollector), OnDelete = "CASCADE")]
+        public ulong? DataCollectorId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Protocol AddInType.
+        /// Device ID.
         /// </summary>
-        [DataMember]
-        public override string ProtocolAddInType
+        [DataMember(IsRequired = true), Index(Unique=false)]
+        [ForeignKey(typeof(GXAmiDevice), OnDelete = "CASCADE")]
+        public ulong DeviceId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Protocol AddInType.
+        /// Order number.
         /// </summary>
-        [DataMember]
-        public override string ProtocolAssembly
+        [DataMember()]
+        public int Index
         {
             get;
             set;
         }
 
         /// <summary>
-        /// The preset name of the device template.
+        /// Media description.
         /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public override string PresetName
+        public string Description
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Retrieves or sets the manufacturer.
-        /// </summary>        
-        [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public override string Manufacturer
+        /// name of selected media.
+        /// </summary>
+        [DataMember]
+        public string Name
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Retrieves or sets the model.
-        /// </summary>        
+        /// Media settings.
+        /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public override string Model
+        public string Settings
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Retrieves or sets the version info.
-        /// </summary>        
+        /// Can Data collector use device.
+        /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false)]
-        public override string Version
+        public bool Disabled
         {
             get;
             set;
         }
-
-        [Browsable(false), Ignore]
-        public override ulong TemplateId
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false), Ignore]
-        public override string Name
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false), Ignore]
-        public override int StatesAsInt
-        {
-            get;
-            set;
-        }
-        
-        [Ignore]
-        public override DateTime TimeStamp
-        {
-            get;
-            set;
-        }		
-
-	}
+    }
 }

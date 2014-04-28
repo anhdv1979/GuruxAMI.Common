@@ -1,4 +1,4 @@
-//
+﻿//
 // --------------------------------------------------------------------------
 //  Gurux Ltd
 // 
@@ -30,29 +30,28 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
-using System;
-namespace GuruxAMI.Common.Messages
+namespace GuruxAMI.Common
 {
-	public class GXDeviceGetRequest : IReturn<GXDeviceGetResponse>, IReturn
-	{
+    /// <summary>
+    /// Enumerates how data is shown.
+    /// </summary>
+    public enum VisualizerType
+    {
         /// <summary>
-        /// Device Id(s).
+        /// Data is shows as text.
         /// </summary>
-        public ulong[] Ids
-		{
-			get;
-			internal set;
-		}
-        public GXDeviceGetRequest(ulong[] deviceIds)
-		{
-            Ids = deviceIds;
-		}
-
-        public GXDeviceGetRequest(ulong deviceId)
-        {
-            Ids = new ulong[] { deviceId };
-        }
-
-	}
+        None,
+        /// <summary>
+        /// Data is shown as button.
+        /// </summary>
+        Button,
+        /// <summary>
+        /// Data is shown as track bar.
+        /// </summary>
+        TrackBar,
+        /// <summary>
+        /// Data is shown as graph.
+        /// </summary>
+        Graph,
+    }
 }

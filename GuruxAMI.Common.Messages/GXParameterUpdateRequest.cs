@@ -34,7 +34,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if !SS4
 using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 
 namespace GuruxAMI.Common.Messages
 {

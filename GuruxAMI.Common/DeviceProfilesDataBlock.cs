@@ -5,12 +5,16 @@ using System.Text;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 using System.Runtime.Serialization;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
-    [Serializable, Alias("DeviceTemplateDataBlock")]
-    public class GXAmiDeviceTemplateDataBlock : IHasId<ulong>
+    [Serializable, Alias("DeviceProfilesDataBlock")]
+    public class GXAmiDeviceProfilesDataBlock : IHasId<ulong>
     {
         [Alias("ID"), AutoIncrement, DataMember]
         public ulong Id
@@ -20,8 +24,8 @@ namespace GuruxAMI.Common
         }
 
         [DataMember]
-        [ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-        public ulong DeviceTemplateId
+        [ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
+        public ulong DeviceProfilesId
         {
             get;
             set;
@@ -41,13 +45,13 @@ namespace GuruxAMI.Common
             set;
         }
 
-        public GXAmiDeviceTemplateDataBlock()
+        public GXAmiDeviceProfilesDataBlock()
         {
         }
 
-        public GXAmiDeviceTemplateDataBlock(ulong templateId, int index, byte[] data, int length)
+        public GXAmiDeviceProfilesDataBlock(ulong profileId, int index, byte[] data, int length)
         {
-            DeviceTemplateId = templateId;
+            DeviceProfilesId = profileId;
             Index = index;
             Data = new byte[length];
             Array.Copy(data, Data, length);

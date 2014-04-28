@@ -31,12 +31,18 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
+    [DataContract()]
     [Serializable, Alias("PropertyTemplate")]
     public class GXAmiPropertyTemplate : GXAmiProperty, IHasId<ulong>
 	{
@@ -57,12 +63,12 @@ namespace GuruxAMI.Common
             set;
         }
 
-        [DataMember, ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
+        [DataMember, ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
         public override ulong DeviceID
         {
             get;
             set;
-        }
+        }        
 
         public GXAmiProperty ToProperty()
         {

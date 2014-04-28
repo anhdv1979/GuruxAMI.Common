@@ -31,9 +31,14 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
     [Serializable, Alias("MediaSettingsTemplate")]
@@ -58,7 +63,7 @@ namespace GuruxAMI.Common
 			set;
 		}
 		[DataMember]
-		public string TemplateName
+		public string ProfileName
 		{
 			get;
 			set;
@@ -69,7 +74,7 @@ namespace GuruxAMI.Common
 			get;
 			set;
 		}
-		[Alias("MediaSettingsTemplateXML"), DataMember]
+		[Alias("MediaSettingsProfileXML"), DataMember]
 		public string MediaSettings
 		{
 			get;

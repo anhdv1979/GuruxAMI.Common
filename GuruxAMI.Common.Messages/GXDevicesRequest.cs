@@ -30,21 +30,17 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXDevicesRequest : IReturn<GXDevicesResponse>, IReturn
-	{
-        /// <summary>
-        /// Is content (Categories, tables and properties) returned also.
-        /// </summary>
-        public bool Content
-        {
-            get;
-            set;
-        }
-
+	{     
         public long UserGroupID
 		{
 			get;
@@ -65,13 +61,22 @@ namespace GuruxAMI.Common.Messages
         public ulong DeviceID
         {
             get;
-            internal set;
+            set;
         }
 
         public ulong DataCollectorId
         {
             get;
             internal set;
+        }
+
+        /// <summary>
+        /// Device profile IDs according to devices are searched.
+        /// </summary>
+        public ulong[] DeviceProfileIDs
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -84,7 +89,7 @@ namespace GuruxAMI.Common.Messages
         }
 
         /// <summary>
-        /// User count.
+        /// Device count.
         /// </summary>
         public int Count
         {
@@ -110,6 +115,17 @@ namespace GuruxAMI.Common.Messages
             set;
         }
 
+        /// <summary>
+        /// What data is retreaved from the device.
+        /// It's slow to get all data if you have lots of meters.
+        /// </summary>
+        public DeviceContentType Content
+        {
+            get;
+            set;
+        }
+        
+
 		public GXDevicesRequest()
 		{
 		}
@@ -131,10 +147,9 @@ namespace GuruxAMI.Common.Messages
             this.DataCollectorId = collector.Id;
         }
 
-        public GXDevicesRequest(GXAmiDevice device, bool content)
+        public GXDevicesRequest(GXAmiDevice device)
         {
             DeviceID = device.Id;
-            Content = content;
         }
 	}
 }

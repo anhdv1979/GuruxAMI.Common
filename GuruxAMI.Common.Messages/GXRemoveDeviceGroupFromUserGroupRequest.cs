@@ -30,8 +30,13 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXRemoveDeviceGroupFromUserGroupRequest : IReturn<GXRemoveDeviceGroupFromUserGroupResponse>, IReturn

@@ -30,11 +30,16 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplatesRequest : IReturn<GXDeviceTemplatesResponse>, IReturn
+	public class GXDeviceProfilesRequest : IReturn<GXDeviceProfilesResponse>, IReturn
 	{
         public ulong[] DataCollectorIDs
         {
@@ -48,6 +53,15 @@ namespace GuruxAMI.Common.Messages
 			internal set;
 		}
 
+        /// <summary>
+        /// Collection of profile IDs to get.
+        /// </summary>
+        public ulong[] ProfileIDs
+        {
+            get;
+            internal set;
+        }
+
         public long UserID
         {
             get;
@@ -58,6 +72,15 @@ namespace GuruxAMI.Common.Messages
         {
             get;
             internal set;
+        }
+
+        /// <summary>
+        /// All all devie profile versions retuned. In default only latest version is retreaved.
+        /// </summary>
+        public bool All
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -73,7 +96,7 @@ namespace GuruxAMI.Common.Messages
         /// All preset templates returned.
         /// </summary>        
         /// <remarks>
-        /// If null all templates are returned.
+        /// If null all device profiles are returned.
         /// </remarks>
         public bool? Preset
         {
@@ -87,20 +110,22 @@ namespace GuruxAMI.Common.Messages
             set;
         }
 
-        public GXDeviceTemplatesRequest(bool preset, string protocol, bool removed)
+        public GXDeviceProfilesRequest(bool preset, string protocol, bool all, bool removed)
 		{
+            All = all;
             Preset = preset;
             Protocol = protocol;
             Removed = removed;
 		}
 
         /// <summary>
-        /// Return devive templates that devices use.
+        /// Return devive profiles that devices use.
         /// </summary>
         /// <param name="devices"></param>
         /// <param name="removed"></param>
-        public GXDeviceTemplatesRequest(GXAmiDevice[] devices, bool removed)
+        public GXDeviceProfilesRequest(GXAmiDevice[] devices, bool all, bool removed)
 		{
+            All = all;
             Removed = removed;
 			if (devices != null)
 			{
@@ -115,12 +140,13 @@ namespace GuruxAMI.Common.Messages
 		}
 
         /// <summary>
-        /// Return devive templates that devices use.
+        /// Return devive profiles that devices use.
         /// </summary>
         /// <param name="devices"></param>
         /// <param name="removed"></param>
-        public GXDeviceTemplatesRequest(GXAmiDataCollector[] collectors, bool removed)
+        public GXDeviceProfilesRequest(GXAmiDataCollector[] collectors, bool all, bool removed)
 		{
+            All = all;
             Removed = removed;
             if (collectors != null)
 			{

@@ -51,6 +51,7 @@ namespace GuruxAMI.Common.Messages
         /// <summary>
         /// Target type.
         /// </summary>
+        [DataMember]
         public ActionTargets Target
         {
             get;

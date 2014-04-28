@@ -34,7 +34,12 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ServiceStack.DataAnnotations;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 using ServiceStack.OrmLite;
 namespace GuruxAMI.Common
 {
@@ -48,7 +53,7 @@ namespace GuruxAMI.Common
 		{
             get
             {
-                return DeviceID | TemplateId;
+                return DeviceID | ProfileId;
             }
             set
             {
@@ -74,10 +79,10 @@ namespace GuruxAMI.Common
         }
 
         /// <summary>
-        /// Category template ID.
+        /// Category profile ID.
         /// </summary>
         [DataMember]
-        public virtual ulong TemplateId
+        public virtual ulong ProfileId
         {
             get;
             set;
@@ -111,6 +116,13 @@ namespace GuruxAMI.Common
 
         [ServiceStack.DataAnnotations.Ignore, IgnoreDataMember()]
         public Gurux.Device.DisabledActions DisabledActions
+        {
+            get;
+            set;
+        }
+
+        [ServiceStack.DataAnnotations.Ignore]
+        public GXAmiVisualizer Visualizer
         {
             get;
             set;

@@ -33,23 +33,23 @@
 using System;
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplateUpdateResponse
+	public class GXDeviceProfilesUpdateResponse
 	{
         public long[] UserGroups
 		{
 			get;
 			internal set;
 		}
-		public GXAmiDeviceTemplate Template
+		public GXAmiDeviceProfile Profile
 		{
 			get;
 			internal set;
 		}
 
-        public GXDeviceTemplateUpdateResponse(long[] groups, GXAmiDeviceTemplate template)
+        public GXDeviceProfilesUpdateResponse(long[] groups, GXAmiDeviceProfile profile)
 		{
             UserGroups = groups;
-			this.Template = template;
+			this.Profile = profile;
 		}
 	}
 }

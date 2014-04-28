@@ -30,8 +30,13 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 
 namespace GuruxAMI.Common.Messages
 {
@@ -46,8 +51,7 @@ namespace GuruxAMI.Common.Messages
 		/// <summary>
         /// DataCollector constructor.
         /// </summary>
-        /// <param name="collectors"></param>
-        /// <param name="level"></param>
+        /// <param name="traces"></param>
         public GXTraceAddRequest(GXAmiTrace[] traces)
 		{
             Traces = traces;

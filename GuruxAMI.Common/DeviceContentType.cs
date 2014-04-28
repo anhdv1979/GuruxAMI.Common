@@ -31,23 +31,34 @@
 //---------------------------------------------------------------------------
 
 using System;
-namespace GuruxAMI.Common.Messages
-{
-    public class GXDeviceGetResponse
-	{
-         /// <summary>
-        /// Device Template Id(s).
-        /// </summary>
-        public GXAmiDevice[] Devices
-		{
-			get;
-			internal set;
-		}
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
 
-        public GXDeviceGetResponse(GXAmiDevice[] devices)
-        {
-            Devices = devices;
-        }
-        
-	}
+namespace GuruxAMI.Common
+{
+    /// <summary>
+    /// //This enum is used to retrieve only necessary device info.
+    /// It's slow to get all data from the meter if there are lots of meters.
+    /// </summary>
+    [DataContract()]
+    public enum DeviceContentType
+    {
+        /// <summary>
+        /// All information from the device is retrieved.
+        /// </summary>
+        [EnumMember(Value = "0")]
+        All,
+        /// <summary>
+        /// Only main content like device ID, Guid, Name, Status and Type are retrieved.
+        /// </summary>
+        [EnumMember(Value = "1")]
+        Main,
+        /// <summary>
+        /// All device info is retrieved. Catgories and properties are not retrieved.
+        /// </summary>
+        [EnumMember(Value = "2")]
+        Device
+    }
 }

@@ -31,16 +31,21 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Gurux.Device;
 using ServiceStack.OrmLite;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
+    [DataContract()]
     [Serializable, Alias("Device")]
     public class GXAmiDevice : IHasId<ulong>
 	{
@@ -69,10 +74,10 @@ namespace GuruxAMI.Common
 		}
 
         /// <summary>
-        /// Device template name.
+        /// Profile name of the device.
         /// </summary>
         [DataMember, Ignore]
-        public virtual string Template
+        public virtual string Profile
         {
             get;
             set;
@@ -99,7 +104,7 @@ namespace GuruxAMI.Common
         }
 
         /// <summary>
-        /// The preset name of the device template.
+        /// The preset name of the device profile.
         /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = false), Ignore]
         public virtual string PresetName
@@ -143,33 +148,33 @@ namespace GuruxAMI.Common
         /// </summary>
         [DataMember]
         [ServiceStack.DataAnnotations.Ignore]      
-        public virtual Guid TemplateGuid
+        public virtual Guid ProfileGuid
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Device template ID.
+        /// Device profile ID.
         /// </summary>
-        [DataMember, ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
-        public virtual ulong TemplateId
+        [DataMember, ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
+        public virtual ulong ProfileId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Device template Version.
+        /// Device profile Version.
         /// </summary>        
         [DataMember]
-        public int TemplateVersion
+        public int ProfileVersion
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         [ServiceStack.DataAnnotations.Ignore]        
         public GXAmiParameter[] Parameters
         {
@@ -177,20 +182,29 @@ namespace GuruxAMI.Common
             set;
         }
 
-        [DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         [ServiceStack.DataAnnotations.Ignore]
         public GXAmiCategory[] Categories
         {
             get;
             set;
         }
-        
-        [DataMember, ServiceStack.DataAnnotations.Ignore]
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ServiceStack.DataAnnotations.Ignore]
         public GXAmiDataTable[] Tables
         {
             get;
             set;
-        }        
+        }
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [ServiceStack.DataAnnotations.Ignore]
+        public GXAmiVisualizer Visualizer
+        {
+            get;
+            set;
+        }
 
         [DataMember, Index(Unique = false)]
 		public virtual string Name
@@ -199,7 +213,7 @@ namespace GuruxAMI.Common
 			set;
 		}
 
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public string Description
 		{
 			get;
@@ -220,7 +234,7 @@ namespace GuruxAMI.Common
         /// This value is saved to the DB.
         /// </remarks>
         [Alias("AutoConnect")]
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public virtual int AutoConnectAsInt
         {
             get
@@ -233,70 +247,90 @@ namespace GuruxAMI.Common
             }
         }
 
-		[DataMember]
+        /// <summary>
+        /// Is each property read separetly.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public bool ForcePerPropertyRead
 		{
 			get;
 			set;
 		}
 
-        [DataMember]
+        /// <summary>
+        /// How often device is read in ms.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int UpdateInterval
 		{
 			get;
 			set;
 		}
 
-		[DataMember]
+        /// <summary>
+        /// How long reply is waited.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int WaitTime
 		{
 			get;
 			set;
 		}
-		[DataMember]
+
+        /// <summary>
+        /// How many times data is try to send.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int ResendCount
 		{
 			get;
 			set;
 		}
-		[DataMember]
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int FailTryCount
 		{
 			get;
 			set;
 		}
-		[DataMember]
+
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int FailWaitTime
 		{
 			get;
 			set;
 		}
-		[DataMember]
+
+        /// <summary>
+        /// How many times connection is try to made.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int ConnectionTryCount
 		{
 			get;
 			set;
 		}
-		[DataMember]
+
+        /// <summary>
+        /// How long is waited before connection is failed.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public int ConnectionFailWaitTime
 		{
 			get;
 			set;
 		}
-		
-        [DataMember]
-		public string MediaName
-		{
-			get;
-			set;
-		}
 
-		[DataMember]
-		public string MediaSettings
-		{
-			get;
-			set;
-		}
+        /// <summary>
+        /// Media connections to the meter.
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [Ignore()]
+        public GXAmiDeviceMedia[] Medias
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Device state.
@@ -315,7 +349,7 @@ namespace GuruxAMI.Common
         /// This value is saved to the DB.
         /// </remarks>
         [Alias("State")]
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public virtual int StatesAsInt
         {
             get
@@ -331,14 +365,15 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Time stamp of device state.
         /// </summary>
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public virtual DateTime TimeStamp
 		{
 			get;
 			set;
 		}
 
-        [DataMember, Ignore()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
+        [Ignore()]
         public GXAmiMediaType[] AllowedMediaTypes
         {
             get;
@@ -359,7 +394,7 @@ namespace GuruxAMI.Common
         /// Returns TraceLevel enum valus as integer.
         /// </summary>
         [Alias("TraceLevel")]
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int TraceLevelAsInt
         {
             get
@@ -375,7 +410,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Date and time when the device was created.
         /// </summary>      
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime Added
 		{
 			get;
@@ -385,7 +420,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Date and time when the device was removed.
         /// </summary>      
-		[DataMember]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
 		public DateTime? Removed
 		{
 			get;
@@ -403,7 +438,7 @@ namespace GuruxAMI.Common
         /// Returns Disabled Actions enum valus as integer.
         /// </summary>
         [Alias("DisabledActions")]
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public int DisabledActionsAsInt
         {
             get

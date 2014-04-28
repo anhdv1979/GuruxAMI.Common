@@ -30,11 +30,16 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
-	public class GXDeviceTemplateUpdateRequest : IReturn<GXDeviceTemplateUpdateResponse>, IReturn
+	public class GXDeviceProfilesUpdateRequest : IReturn<GXDeviceProfilesUpdateResponse>, IReturn
 	{
         public long[] UserGroups
 		{
@@ -47,7 +52,7 @@ namespace GuruxAMI.Common.Messages
 			get;
 			internal set;
 		}
-		public GXDeviceTemplateUpdateRequest(GXAmiUserGroup[] groups, byte[] data)
+		public GXDeviceProfilesUpdateRequest(GXAmiUserGroup[] groups, byte[] data)
 		{
             if (groups != null)
             {

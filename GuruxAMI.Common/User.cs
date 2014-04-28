@@ -31,13 +31,17 @@
 //---------------------------------------------------------------------------
 
 using ServiceStack.DataAnnotations;
-using ServiceStack.DesignPatterns.Model;
 using System;
 using System.Runtime.Serialization;
 using System.ComponentModel;
 using ServiceStack.OrmLite;
 using System.Security.Cryptography;
 using System.IO;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -45,6 +49,7 @@ namespace GuruxAMI.Common
     /// A data contract class representing User object.
     /// User class is used to manage user authentication, authorization and general settings.
     /// </summary>
+    [DataContract()]
     [Serializable, Alias("User")]
 	public class GXAmiUser : IHasId<long>
 	{
@@ -216,7 +221,7 @@ namespace GuruxAMI.Common
         /// <summary>
         /// If this is not null then the user is removed and should not be displayed on the user interface
         /// </summary>
-        [DataMember()]
+        [DataMember(IsRequired = false, EmitDefaultValue = false)]
         public DateTime? Removed
 		{
 			get;

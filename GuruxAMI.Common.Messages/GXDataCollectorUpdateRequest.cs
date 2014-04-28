@@ -34,30 +34,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if !SS4
 using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
 
 namespace GuruxAMI.Common.Messages
 {
     public class GXDataCollectorUpdateRequest : IReturn<GXDataCollectorUpdateResponse>, IReturn
     {
+        /// <summary>
+        /// DC Mac Address.
+        /// </summary>
         public byte[] MacAddress
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// User group IDs that can use this DC.
+        /// </summary>
         public long[] UserGroupIDs
         {
             get;
             internal set;
         }
 
-        public ulong[] DeviceIDs
-        {
-            get;
-            internal set;
-        }
-
+        /// <summary>
+        /// Datacollectors to add or update.
+        /// </summary>
         public GXAmiDataCollector[] Collectors
         {
             get;
@@ -81,22 +88,6 @@ namespace GuruxAMI.Common.Messages
                     this.UserGroupIDs[++pos] = userGroups[i].Id;
                 }
             }            
-        }
-
-        public GXDataCollectorUpdateRequest(GXAmiDataCollector[] datacollectors, GXAmiDevice[] devices)
-        {
-            Collectors = datacollectors;
-            if (devices != null)
-            {
-                int pos = -1;
-                this.DeviceIDs = new ulong[devices.Length];
-                for (int i = 0; i < devices.Length; i++)
-                {
-                    this.DeviceIDs[++pos] = devices[i].Id;
-                }
-            }            
-        }
-
-        
+        }       
     }
 }

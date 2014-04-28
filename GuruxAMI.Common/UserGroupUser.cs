@@ -34,7 +34,11 @@ using ServiceStack.DataAnnotations;
 using System;
 using System.Runtime.Serialization;
 using ServiceStack.OrmLite;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
 {
@@ -78,16 +82,6 @@ namespace GuruxAMI.Common
         /// </summary>
         [DataMember]
         public DateTime Added
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// If this is not null then the binding has been removed and shouldn't be displayed on the user interface.
-        /// </summary>
-        [DataMember]
-        public DateTime? Removed
         {
             get;
             set;

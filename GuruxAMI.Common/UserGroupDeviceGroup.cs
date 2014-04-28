@@ -34,7 +34,12 @@ using System;
 using System.Runtime.Serialization;
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
+#if !SS4
 using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
+
 namespace GuruxAMI.Common
 {
     [Serializable, Alias("UserGroupDeviceGroup")]
@@ -62,6 +67,9 @@ namespace GuruxAMI.Common
 			set;
 		}
 
+        /// <summary>
+        /// The time when the device group was added to the user group.
+        /// </summary>
 		[DataMember]
 		public DateTime Added
 		{

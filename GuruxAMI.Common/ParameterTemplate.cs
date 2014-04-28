@@ -30,23 +30,28 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.DesignPatterns.Model;
 using System;
 using ServiceStack.OrmLite;
 using ServiceStack.DataAnnotations;
 using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 using Gurux.Device.Editor;
+#if !SS4
+using ServiceStack.DesignPatterns.Model;
+#else
+using ServiceStack.Model;
+#endif
 
 namespace GuruxAMI.Common
-{
+{   
+    [DataContract()]
     [Serializable, Alias("ParameterTemplate")]
     public class GXAmiParameterTemplate : GXAmiParameter, IHasId<ulong>
 	{
         /// <summary>
         /// Device template ID.
         /// </summary>
-        [DataMember, ForeignKey(typeof(GXAmiDeviceTemplate), OnDelete = "CASCADE")]
+        [DataMember, ForeignKey(typeof(GXAmiDeviceProfile), OnDelete = "CASCADE")]
         public override ulong DeviceID
         {
             get;

@@ -30,8 +30,13 @@
 // Full text may be retrieved at http://www.gnu.org/licenses/gpl-2.0.txt
 //---------------------------------------------------------------------------
 
-using ServiceStack.ServiceHost;
 using System;
+#if !SS4
+using ServiceStack.ServiceHost;
+#else
+using ServiceStack;
+#endif
+
 namespace GuruxAMI.Common.Messages
 {
 	public class GXTaskDeleteRequest : IReturn<GXTaskDeleteResponse>, IReturn
@@ -87,7 +92,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiUserGroup[] groups, bool permanently)
+		public GXTaskDeleteRequest(GXAmiUserGroup[] groups)
 		{
 			if (groups != null)
 			{
@@ -100,7 +105,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiDevice[] devices, bool permanently)
+		public GXTaskDeleteRequest(GXAmiDevice[] devices)
 		{
 			if (devices != null)
 			{
@@ -113,7 +118,7 @@ namespace GuruxAMI.Common.Messages
 				}
 			}
 		}
-		public GXTaskDeleteRequest(GXAmiDeviceGroup[] groups, bool permanently)
+		public GXTaskDeleteRequest(GXAmiDeviceGroup[] groups)
 		{
 			if (groups != null)
 			{

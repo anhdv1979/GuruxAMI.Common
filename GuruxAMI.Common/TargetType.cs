@@ -36,7 +36,7 @@ namespace GuruxAMI.Common
 {
     /// <summary>
     /// A data contract enum representing Target Type values.
-    /// Device, Property, DeviceTemplate, etc.
+    /// Device, Property, DeviceProfiles, etc.
     /// </summary>
     [DataContract()]
     public enum TargetType
@@ -44,65 +44,65 @@ namespace GuruxAMI.Common
         /// <summary>
         /// Target type is not set.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "0")]
         None,
         /// <summary>
         /// Target is a data collector.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "1")]
         DataCollector,
         /// <summary>
         /// Target is a device group.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "2")]
         DeviceGroup,
 
         /// <summary>
         /// Target is a device.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "3")]
         Device,
 
         /// <summary>
         /// Target is a category.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "4")]
         Category,
 
         /// <summary>
         /// Target is a table.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "5")]
         Table,
         
         /// <summary>
         /// Target is a property.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "6")]
         Property,
 
         /// <summary>
         /// Target is a schedule item.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "7")]
         Schedule,
 
         /// <summary>
-        /// Target is a device template.
+        /// Target is a device profile.
         /// </summary>
-        [EnumMember]
-        DeviceTemplate,
+        [EnumMember(Value = "8")]
+        DeviceProfile,
 
         /// <summary>
         /// Target is a software package.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "9")]
         SoftwarePackage,
         
         /// <summary>
         /// Media is the target.
         /// </summary>
-        [EnumMember]
+        [EnumMember(Value = "10")]
         Media
     }
 }
